@@ -1,0 +1,227 @@
+/* ================================================================
+   SERVICES PAGE STYLES
+   ================================================================ */
+
+/* ── BACKGROUND ─────────────────────────────────────────────── */
+.bg-services {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-bg);
+  pointer-events: none;
+  overflow: hidden;
+  user-select: none;
+  background: var(--bg-void);
+}
+
+.bg-orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150vw;
+  height: 150vh;
+  transform: translate(-50%, -50%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+
+/* ── PAGE HEADER ─────────────────────────────────────────────── */
+.services-header {
+  padding-top: var(--s-20);
+  padding-bottom: var(--s-12);
+  position: relative;
+  z-index: var(--z-content);
+  border-bottom: 1px solid var(--border-dim);
+}
+
+
+/* ── SERVICE MODULES ─────────────────────────────────────────── */
+.services-list {
+  padding-block: var(--s-16);
+  position: relative;
+  z-index: var(--z-content);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+/* Full-width service module (not the card grid from home) */
+.service-module {
+  display: grid;
+  grid-template-columns: minmax(320px, auto) 1fr;
+  gap: var(--s-10);
+  align-items: start;
+  padding: var(--s-10) 0;
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.service-module:last-child { border-bottom: none; }
+
+.service-module__identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding-top: var(--s-2);
+  min-width: 0; /* allows shrinking in grid */
+}
+
+.service-module__number {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--blue-primary);
+  letter-spacing: 0.16em;
+  opacity: 0.7;
+}
+
+.service-module__title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 800;
+  color: var(--text-white);
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.service-module__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--status-warn);
+  border: 1px solid rgba(255, 138, 31, 0.35);
+  padding: 3px var(--s-3);
+  border-radius: var(--r-sm);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.service-module__tag::before {
+  content: '◈';
+  font-size: 8px;
+}
+
+.service-module__pills {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+
+.service-module__pill {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--blue-primary);
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.service-module__pill::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--blue-primary);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* Right column — body content + mini visual */
+.service-module__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+}
+
+.service-module__body {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  line-height: 1.78;
+}
+
+/* Mini inline visualization panel (Removed for clean aesthetic) */
+.service-module__visual {
+  display: none;
+}
+
+
+/* ── ROADMAP SECTION ─────────────────────────────────────────── */
+.services-roadmap {
+  padding-block: var(--s-20);
+  border-top: 1px solid var(--border-dim);
+  position: relative;
+  z-index: var(--z-content);
+}
+
+.roadmap-panel {
+  background: rgba(24, 34, 45, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--r-lg);
+  padding: var(--s-10) var(--s-8);
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--s-10);
+  backdrop-filter: blur(12px);
+}
+
+.roadmap-panel__inner {
+  max-width: 680px;
+  position: relative;
+  z-index: 1;
+}
+
+.roadmap-panel__title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  color: var(--text-white);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: var(--s-6);
+}
+
+.roadmap-panel__body {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+/* Decorative background inside roadmap panel */
+.roadmap-panel__bg {
+  position: absolute;
+  right: var(--s-6);
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .service-module {
+    grid-template-columns: 1fr;
+    gap: var(--s-6);
+  }
+
+  .service-module__title { font-size: var(--text-4xl); }
+
+  .service-module__visual { height: 80px; }
+}
+
+@media (max-width: 480px) {
+  .service-module { padding-block: var(--s-8); }
+  .service-module__title { font-size: var(--text-3xl); }
+  .roadmap-panel { padding: var(--s-6); }
+  .roadmap-panel__title { font-size: var(--text-3xl); }
+}

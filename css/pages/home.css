@@ -1,0 +1,186 @@
+/* ================================================================
+   HOME PAGE STYLES
+   ================================================================ */
+
+/* ── BACKGROUND LAYER — radar / command-center ───────────────── */
+.bg-home {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-bg);
+  pointer-events: none;
+  overflow: hidden;
+  user-select: none;
+}
+
+.bg-orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150vw;
+  height: 150vh;
+  transform: translate(-50%, -50%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+
+/* ── HERO SECTION ────────────────────────────────────────────── */
+.hero {
+  min-height: calc(100vh - var(--nav-h));
+  display: flex;
+  align-items: center;
+  padding-block: var(--s-20) var(--s-16);
+  position: relative;
+  z-index: var(--z-content);
+}
+
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  max-width: 760px;
+}
+
+/* Eyebrow row */
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+
+/* Brand display — the large TECHPHONSA */
+.hero__brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(var(--text-4xl), 8vw, var(--text-7xl));
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-white);
+  line-height: 1.0;
+  /* Subtle text shadow for depth */
+  text-shadow: 0 0 60px rgba(165, 173, 182, 0.08);
+}
+
+/* Main marketing headline — the h1 */
+.hero__headline {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(var(--text-2xl), 3.5vw, var(--text-4xl));
+  color: var(--text-primary);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-transform: none; /* readable, not uppercase */
+  max-width: 680px;
+}
+
+/* Subheadline paragraph */
+.hero__subhead {
+  font-family: var(--font-body);
+  font-size: clamp(var(--text-base), 1.5vw, var(--text-lg));
+  color: var(--text-secondary);
+  line-height: 1.75;
+  max-width: 620px;
+}
+
+/* CTA row */
+.hero__cta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  margin-top: var(--s-2);
+}
+
+/* Decorative meta row below headline */
+.hero__meta-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  margin-top: var(--s-4);
+  flex-wrap: wrap;
+}
+
+/* Small decorative separator line */
+.hero__separator {
+  display: block;
+  width: 1px;
+  height: 12px;
+  background: var(--border-mid);
+}
+
+
+/* ── WHAT WE BUILD SECTION ───────────────────────────────────── */
+.home-services {
+  padding-block: var(--s-20);
+  position: relative;
+  z-index: var(--z-content);
+}
+
+.home-services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-4);
+  margin-top: var(--s-12);
+}
+
+/* Subtle line connecting section to hero */
+.home-services__header-rule {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin-bottom: var(--s-12);
+}
+
+.home-services__header-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-dim);
+}
+
+
+/* ── TRUST SECTION ───────────────────────────────────────────── */
+.home-trust {
+  padding-block: var(--s-20);
+  position: relative;
+  z-index: var(--z-content);
+  border-top: 1px solid var(--border-dim);
+}
+
+.home-trust__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s-6) var(--s-10);
+  margin-top: var(--s-12);
+}
+
+
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .home-services__grid {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+  }
+
+  .home-trust__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding-block: var(--s-12) var(--s-12);
+    min-height: auto;
+    padding-top: var(--s-16);
+  }
+
+  .bg-grid-home {
+    background-size: 40px 40px;
+    opacity: 0.6;
+  }
+
+  .bg-coords { display: none; }
+  .hero__separator { display: none; }
+}
