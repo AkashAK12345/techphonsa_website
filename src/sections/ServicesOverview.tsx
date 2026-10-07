@@ -17,6 +17,11 @@ const ServicesOverview = () => {
       ref={sectionRef as React.RefObject<HTMLElement>}
       aria-labelledby="wwb-heading"
     >
+      {/* Sticky background layer: appears fixed within the section, disappears when section ends */}
+      <div className="wwb-bg-layer" aria-hidden="true">
+        <div className="wwb-bg-img"></div>
+      </div>
+
       <div className="container">
         <div className="wwb-grid">
           
@@ -30,6 +35,7 @@ const ServicesOverview = () => {
           
           <div className="wwb-right">
             <div className="wwb-card-stage">
+              {/* Dynamic Content Layers */}
               <div className={`wwb-card-slot ${activeIndex === 0 ? 'is-active' : activeIndex > 0 ? 'is-past' : 'is-future'}`}>
                 <WebsitesSection />
               </div>

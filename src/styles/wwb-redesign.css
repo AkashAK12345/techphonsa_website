@@ -5,12 +5,47 @@
   background-color: var(--bg-void); 
 }
 
+/* ── STICKY BACKGROUND LAYER ─────────────────────────────────────────── */
+/* 
+  .wwb-bg-layer sits as first child of .wwb-section.
+  position:sticky + top:0 makes it appear pinned at the top of the viewport
+  while the user scrolls through the 350vh runway.
+  margin-bottom:-100vh pulls subsequent siblings up so layout isn't pushed down.
+  Because it's INSIDE .wwb-section (not position:fixed), it naturally
+  disappears when the section scrolls out of view — no bleed into other sections.
+  No overflow:hidden is needed, so sticky children are unaffected.
+*/
+.wwb-bg-layer {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  /* Pull the grid/container up so it overlaps the bg layer */
+  margin-bottom: -100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wwb-bg-img {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/services.jpg');
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.18;
+  filter: grayscale(100%);
+}
+
 /* The scroll runway */
 .wwb-scroll-track {
   height: 350vh; 
 }
 
-.wwb-section .container,
+.wwb-section .container {
+  height: 100%;
+  position: relative;
+  z-index: 1; /* Sits above .wwb-bg-layer */
+}
+
 .wwb-grid {
   height: 100%;
 }
@@ -54,7 +89,14 @@
   top: calc(var(--nav-h) + 40px);
   display: grid;
   grid-template-columns: 1fr;
+  background: rgba(12, 12, 16, 0.85);
+  border: 1px solid var(--border-dim);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  overflow: hidden;
 }
+
+
 
 /* Override .flow-card to just fill the slot */
 .wwb-section .flow-card {
@@ -69,17 +111,17 @@
   flex-direction: column;
   gap: var(--s-6);
   padding: clamp(24px, 4vw, 48px);
-  background: rgb(18, 18, 26);
-  border: 1px solid var(--border-dim);
-  border-radius: 12px;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
   height: 100%;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-  transition: border-color 0.4s ease, background 0.4s ease;
+  box-shadow: none !important;
+  transition: none !important;
 }
 
 .wwb-section .flow-card:hover {
-  border-color: var(--border-active);
-  background: rgb(24, 24, 34);
+  background: transparent !important;
+  border-color: transparent !important;
 }
 
 /* Cards that are in the past move UP and fade out */
@@ -112,6 +154,7 @@
 .wwb-card-slot.is-active {
   grid-row: 1;
   grid-column: 1;
+  z-index: 2; /* Active text is highest */
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -142,6 +185,17 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    background: transparent;
+  }
+
+  .wwb-section .flow-card {
+    background: rgb(18, 18, 26) !important;
+    border: 1px solid var(--border-dim) !important;
+    border-radius: 12px !important;
   }
   
   .wwb-card-slot,
