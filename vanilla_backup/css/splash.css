@@ -1,0 +1,156 @@
+/* ================================================================
+   TECHPHONSA SPLASH SEQUENCE & CINEMATIC TITLE CARD
+   ================================================================ */
+
+/* ── 1. SPLASH SCREEN (Dark Cinematic Intro) ───────────────── */
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--surface-default, #0a0a0a); /* Dark forest-black */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Cinematic curtain raise: clip-path inset from bottom */
+  transition: clip-path 1.2s cubic-bezier(0.76, 0, 0.24, 1), transform 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: clip-path, transform;
+}
+
+.splash-screen.is-hidden {
+  clip-path: inset(0 0 100% 0); /* Wipe UP */
+  transform: translateY(-5%); /* Slight upward drift as it leaves */
+  pointer-events: none;
+}
+
+.splash-screen.is-hidden .splash-content {
+  opacity: 0;
+  transform: scale(1.1) translateY(-10px);
+  filter: blur(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+}
+
+.splash-content {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3, 1rem);
+  opacity: 0;
+  animation: splash-enter 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.splash-logo {
+  width: 44px;
+  height: 44px;
+}
+
+.splash-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+@keyframes splash-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.02) translateY(-10px);
+  }
+}
+
+/* ── 2. HERO HEADLINE (Word-by-Word Title Card) ────────────── */
+
+body.is-intro-sequence {
+  overflow: hidden; /* Lock scroll during intro */
+}
+
+/* Base style for split words */
+.hero__headline .word {
+  display: inline-block;
+  overflow: hidden; /* Mask for the glide-in effect */
+  vertical-align: top;
+  /* Ensure spacing between words is preserved */
+  margin-right: 0.25em;
+}
+
+.hero__headline .word-inner {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* When the sequence triggers, we add .intro-play to the headline */
+.hero__headline.intro-play .word-inner {
+  animation: word-glide-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes word-glide-in {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ── 3. SUPPORTING COPY & CTA ──────────────────────────────── */
+.hero__subhead,
+.hero__cta {
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: transform, opacity;
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-elements-play .hero__subhead,
+.hero-elements-play .hero__cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 4. FINAL STATE (CLEANUP) ──────────────────────────────── */
+.intro-complete .hero__headline .word-inner,
+.intro-complete .hero__subhead,
+.intro-complete .hero__cta {
+  /* Remove transforms and opacity locks to return to completely normal CSS state */
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+.intro-complete .hero__headline .word {
+  overflow: visible !important;
+  margin-right: 0 !important; /* Will rely on original spacing if rebuilt, or keep margin if needed */
+}
+
+/* ── REDUCED MOTION FAILSAFE ───────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .splash-screen {
+    display: none !important;
+  }
+  .hero__headline .word-inner {
+    transform: none !important;
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  .hero__subhead, .hero__cta {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}

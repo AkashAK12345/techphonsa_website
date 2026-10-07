@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — Techphonsa</title>
+  <meta name="description" content="Techphonsa builds websites, automation workflows, and AI integration for small businesses. Practical systems, no agency markup, built hands-on.">
+
+  <link rel="canonical" href="./services.html">
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/design-system.css?v=9">
+  <link rel="stylesheet" href="./css/animations.css?v=9">
+  <link rel="stylesheet" href="./css/components.css?v=9">
+  <link rel="stylesheet" href="./css/pages/services.css?v=9">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       BACKGROUND — Atmospheric Abstract Sphere
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="bg-services" aria-hidden="true" role="presentation">
+    <svg class="bg-orb bg-orb-float" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="blur-xl" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="150" />
+        </filter>
+        <radialGradient id="halo-services" cx="30%" cy="70%" r="60%">
+          <stop offset="0%" stop-color="#E9ECEF" stop-opacity="0.08" />
+          <stop offset="40%" stop-color="#C4C9CE" stop-opacity="0.04" />
+          <stop offset="100%" stop-color="#05080D" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      
+      <!-- Off-center soft floating sphere -->
+      <circle cx="300" cy="700" r="450" fill="url(#halo-services)" filter="url(#blur-xl)" class="bg-orb-pulse" />
+      <circle cx="800" cy="200" r="300" fill="#E9ECEF" opacity="0.02" filter="url(#blur-xl)" class="bg-orb-drift" />
+    </svg>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="./index.html" class="nav-brand" aria-label="Techphonsa home">
+      <svg class="nav-logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="13,2 27,2 38,13 38,27 27,38 13,38 2,27 2,13" stroke="#334155" stroke-width="1.5" fill="none" opacity="0.9"/>
+        <circle cx="20" cy="20" r="10" stroke="#334155" stroke-width="0.75" opacity="0.3"/>
+        <line x1="20" y1="2"  x2="20" y2="7"  stroke="#334155" stroke-width="1.5" opacity="0.7"/>
+        <line x1="20" y1="33" x2="20" y2="38" stroke="#334155" stroke-width="1.5" opacity="0.7"/>
+        <line x1="2"  y1="20" x2="7"  y2="20" stroke="#334155" stroke-width="1.5" opacity="0.7"/>
+        <line x1="33" y1="20" x2="38" y2="20" stroke="#334155" stroke-width="1.5" opacity="0.7"/>
+        <rect x="11" y="15" width="18" height="2.5" fill="#F5F7FA" rx="0.5"/>
+        <rect x="18" y="17.5" width="4" height="9" fill="#F5F7FA" rx="0.5"/>
+        <rect x="12.5" y="3.5"  width="2.5" height="2.5" fill="#334155" opacity="0.5"/>
+        <rect x="25"   y="3.5"  width="2.5" height="2.5" fill="#334155" opacity="0.5"/>
+        <rect x="12.5" y="34"   width="2.5" height="2.5" fill="#334155" opacity="0.5"/>
+        <rect x="25"   y="34"   width="2.5" height="2.5" fill="#334155" opacity="0.5"/>
+      </svg>
+      <span class="nav-name">Techphonsa</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./about.html">About</a></li>
+      <li><a href="./services.html">Services</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+
+    <button class="nav-hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile-overlay" id="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation">
+    <button class="nav-mobile-close" aria-label="Close navigation">ESC / CLOSE</button>
+    <a href="./index.html">Home</a>
+    <a href="./about.html">About</a>
+    <a href="./services.html">Services</a>
+    <a href="./contact.html">Contact</a>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════════════════════════════════ -->
+  <main id="main-content" class="page-content">
+
+    <!-- ── PAGE HEADER ───────────────────────────────────────── -->
+    <header class="services-header section" aria-labelledby="services-title">
+      <div class="container">
+        <span class="section-header__eyebrow">// WHAT WE BUILD AND HOW</span>
+        <h1 class="section-header__title section-header__title--large anim-fade-up" id="services-title">
+          Systems
+        </h1>
+        <span class="section-header__rule" aria-hidden="true"></span>
+        <p style="margin-top:var(--s-6);font-size:var(--text-lg);color:var(--text-secondary);max-width:560px;line-height:1.75;"
+           class="anim-fade-up anim-fade-up--delay-1">
+          Three practical capabilities. We start with what your business actually needs right now.
+        </p>
+      </div>
+    </header>
+
+
+    <!-- ── SERVICE MODULES ──────────────────────────────────── -->
+    <section class="services-list section" aria-label="Services">
+      <div class="container">
+
+        <!-- SERVICE 01 — WEBSITES -->
+        <article class="service-module anim-fade-up" id="websites" aria-labelledby="svc1-title">
+          <div class="service-module__identity">
+            <span class="service-module__number">SERVICE // 01</span>
+            <h2 class="service-module__title" id="svc1-title">Websites</h2>
+            <div class="service-module__pills">
+              <span class="service-module__pill">Responsive design</span>
+              <span class="service-module__pill">Basic SEO setup</span>
+              <span class="service-module__pill">Lead capture forms</span>
+              <span class="service-module__pill">Optional CMS</span>
+            </div>
+          </div>
+          <div class="service-module__content">
+            <p class="service-module__body">
+              A clean, fast, mobile-first website built to represent your business accurately — not a generic template with your logo dropped in. Every site includes on-page SEO fundamentals and a working lead capture form from day one, with an optional CMS if you'd like to manage content updates yourself going forward.
+            </p>
+            <!-- Mini architectural wireframe visual -->
+            <div class="service-module__visual" aria-hidden="true">
+              <!-- Removed technical SVG for minimal layout -->
+            </div>
+            <a href="./contact.html" class="hud-btn hud-btn--primary" style="width:fit-content;">
+              Start a website project
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- SERVICE 02 — AUTOMATION -->
+        <article class="service-module anim-fade-up anim-fade-up--delay-1" id="automation" aria-labelledby="svc2-title">
+          <div class="service-module__identity">
+            <span class="service-module__number">SERVICE // 02</span>
+            <h2 class="service-module__title" id="svc2-title">Automation</h2>
+            <div class="service-module__pills">
+              <span class="service-module__pill">n8n workflows</span>
+              <span class="service-module__pill">Lead routing</span>
+              <span class="service-module__pill">Record synchronization</span>
+              <span class="service-module__pill">24/7 operation</span>
+            </div>
+          </div>
+          <div class="service-module__content">
+            <p class="service-module__body">
+              Small businesses lose real time — and real leads — to repetitive manual work: following up on inquiries, routing new leads to the right person, keeping records in sync across different tools. We build automated workflows that handle this in the background: a lead comes in, gets qualified, and reaches the right person automatically, around the clock, with no one babysitting an inbox.
+            </p>
+            <!-- Mini workflow visual -->
+            <div class="service-module__visual" aria-hidden="true">
+              <!-- Removed technical SVG for minimal layout -->
+            </div>
+            <a href="./contact.html" class="hud-btn hud-btn--primary" style="width:fit-content;">
+              Discuss automation
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- SERVICE 03 — AI INTEGRATION -->
+        <article class="service-module anim-fade-up anim-fade-up--delay-2" id="ai" aria-labelledby="svc3-title">
+          <div class="service-module__identity">
+            <span class="service-module__number">SERVICE // 03</span>
+            <h2 class="service-module__title" id="svc3-title">AI Integration</h2>
+            <span class="service-module__tag">Early Access</span>
+            <div class="service-module__pills" style="margin-top:var(--s-4);">
+              <span class="service-module__pill">RAG systems</span>
+              <span class="service-module__pill">Document processing</span>
+              <span class="service-module__pill">Lead scoring</span>
+              <span class="service-module__pill">Case-by-case scope</span>
+            </div>
+          </div>
+          <div class="service-module__content">
+            <p class="service-module__body">
+              For businesses ready to go a step further: a support assistant trained on your own documentation, automated document and data processing, or intelligent lead scoring for outbound sales. This is where our AI/ML background comes in directly — currently available on a case-by-case basis as we take on early projects in this space.
+            </p>
+            <!-- Mini neural network visual -->
+            <div class="service-module__visual" aria-hidden="true">
+              <!-- Removed technical SVG for minimal layout -->
+            </div>
+            <a href="./contact.html" class="hud-btn hud-btn--primary" style="width:fit-content;">
+              Enquire about AI
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+
+      </div><!-- /container -->
+    </section>
+
+
+    <!-- ── WHAT'S COMING NEXT ────────────────────────────────── -->
+    <section class="services-roadmap section" aria-labelledby="roadmap-heading">
+      <div class="container">
+        <span class="section-header__eyebrow">// DEVELOPMENT TRAJECTORY</span>
+        <h2 class="section-header__title section-header__title--medium anim-fade-up" id="roadmap-heading">
+          What's Coming Next
+        </h2>
+
+        <div class="roadmap-panel anim-fade-up anim-fade-up--delay-1">
+          <div class="hud-panel__corners" aria-hidden="true"></div>
+          <!-- Decorative background schematic -->
+          <div class="roadmap-panel__bg" aria-hidden="true">
+            <!-- Removed technical SVG for minimal layout -->
+          </div>
+
+          <div class="roadmap-panel__inner">
+            <h3 class="roadmap-panel__title">Software product — in development</h3>
+            <p class="roadmap-panel__body">
+              We're building toward a small, focused software product for small businesses — shaped
+              directly by the automation work we do with real clients, not guessed at from a whiteboard.
+              If you work with us on automation, you'll likely see this evolve alongside your own feedback.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ── CTA ────────────────────────────────────────────────── -->
+    <section class="home-cta section" style="border-top:1px solid var(--border-dim);" aria-labelledby="svc-cta-heading">
+      <div class="container">
+        <div class="home-cta__inner">
+          <h2 class="home-cta__title" id="svc-cta-heading">Not sure where to start?</h2>
+          <p style="font-size:var(--text-lg);color:var(--text-secondary);max-width:480px;text-align:center;line-height:1.7;">
+            Tell us what you're trying to solve. We'll figure out together which of these actually makes sense for your business right now.
+          </p>
+          <a href="./contact.html" class="hud-btn hud-btn--primary">
+            Let's talk about what you need
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polygon points="13,2 27,2 38,13 38,27 27,38 13,38 2,27 2,13" stroke="#334155" stroke-width="1.5" fill="none" opacity="0.7"/>
+            <rect x="11" y="15" width="18" height="2.5" fill="#8B98A8" rx="0.5"/>
+            <rect x="18" y="17.5" width="4" height="9" fill="#8B98A8" rx="0.5"/>
+          </svg>
+          Techphonsa
+        </div>
+        <nav class="footer__links" aria-label="Footer navigation">
+          <a href="./index.html">Home</a>
+          <a href="./about.html">About</a>
+          <a href="./services.html">Services</a>
+          <a href="./contact.html">Contact</a>
+        </nav>
+        <p class="footer__meta" aria-hidden="true">SYS.STATUS // OPERATIONAL</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/core.js"></script>
+  <script src="./js/interactions.js"></script>
+
+</body>
+</html>

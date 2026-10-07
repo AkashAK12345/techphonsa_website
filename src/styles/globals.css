@@ -1,0 +1,9 @@
+@import './design-system.css';
+@import './animations.css';
+@import './components.css';
+@import './home.css';
+
+/* Override any default vite styles if needed */
+body {
+  margin: 0;
+}
