@@ -1,0 +1,157 @@
+.wwb-section {
+  padding-block: clamp(80px, 15vh, 160px);
+  position: relative;
+  z-index: var(--z-content);
+  background-color: var(--bg-void); 
+}
+
+/* The scroll runway */
+.wwb-scroll-track {
+  height: 350vh; 
+}
+
+.wwb-section .container,
+.wwb-grid {
+  height: 100%;
+}
+
+.wwb-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-12);
+}
+
+@media (min-width: 900px) {
+  .wwb-grid {
+    grid-template-columns: 45% 50%;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+}
+
+.wwb-sticky-container {
+  position: sticky;
+  top: calc(var(--nav-h) + 40px);
+  will-change: transform;
+  overflow: visible; 
+}
+
+.wwb-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 9rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+  margin: 0;
+  word-break: break-word;
+}
+
+/* --- THE NEW CARD STAGE --- */
+
+.wwb-card-stage {
+  position: sticky;
+  top: calc(var(--nav-h) + 40px);
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+/* Override .flow-card to just fill the slot */
+.wwb-section .flow-card {
+  position: relative !important;
+  top: auto !important;
+  margin: 0 !important;
+  opacity: 1 !important; 
+  transform: none !important; 
+  pointer-events: auto !important;
+  
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  padding: clamp(24px, 4vw, 48px);
+  background: rgb(18, 18, 26);
+  border: 1px solid var(--border-dim);
+  border-radius: 12px;
+  height: 100%;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+
+.wwb-section .flow-card:hover {
+  border-color: var(--border-active);
+  background: rgb(24, 24, 34);
+}
+
+/* Cards that are in the past move UP and fade out */
+.wwb-card-slot.is-past {
+  grid-row: 1;
+  grid-column: 1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-40px);
+  transition: opacity 0.6s cubic-bezier(0.2, 0, 0, 1), 
+              transform 0.6s cubic-bezier(0.2, 0, 0, 1), 
+              visibility 0.6s step-end;
+}
+
+/* Cards that are in the future wait BELOW */
+.wwb-card-slot.is-future {
+  grid-row: 1;
+  grid-column: 1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(40px);
+  transition: opacity 0.6s cubic-bezier(0.2, 0, 0, 1), 
+              transform 0.6s cubic-bezier(0.2, 0, 0, 1), 
+              visibility 0.6s step-end;
+}
+
+/* Active card sits perfectly in place */
+.wwb-card-slot.is-active {
+  grid-row: 1;
+  grid-column: 1;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: opacity 0.6s cubic-bezier(0.2, 0, 0, 1), 
+              transform 0.6s cubic-bezier(0.2, 0, 0, 1), 
+              visibility 0s step-start;
+  z-index: 2;
+}
+
+/* For mobile */
+@media (max-width: 899px) {
+  .wwb-scroll-track {
+    height: auto;
+  }
+  .wwb-section .container,
+  .wwb-grid {
+    height: auto;
+  }
+  .wwb-sticky-container {
+    position: relative;
+    top: auto;
+  }
+  
+  .wwb-card-stage {
+    position: relative;
+    top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .wwb-card-slot,
+  .wwb-card-slot.is-past,
+  .wwb-card-slot.is-future,
+  .wwb-card-slot.is-active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
