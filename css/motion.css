@@ -1,0 +1,274 @@
+/* ================================================================
+   TECHPHONSA MOTION & INTERACTION v1.0
+   ================================================================ */
+
+:root {
+  /* Refined cinematic easing */
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  
+  --transition-fast: 250ms var(--ease-cinematic);
+  --transition-medium: 500ms var(--ease-cinematic);
+  --transition-slow: 800ms var(--ease-cinematic);
+}
+
+/* ── PAGE LOAD SEQUENCE & REVEAL SYSTEM ───────────────────── */
+/* Progressive Enhancement: Elements are visible by default without JS */
+[data-reveal],
+[data-reveal="blur"],
+[data-reveal="mask"] {
+  /* Default visible state */
+  opacity: 1;
+  transform: none;
+  filter: none;
+  clip-path: none;
+}
+
+/* Hidden states applied only when JS is active and motion is allowed */
+html.motion-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+html.motion-ready [data-reveal="blur"] {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(8px);
+  will-change: opacity, transform, filter;
+  transition: opacity var(--transition-slow), transform var(--transition-slow), filter var(--transition-slow);
+}
+
+html.motion-ready [data-reveal="mask"] {
+  opacity: 1; /* keep opacity 1 for mask */
+  transform: translateY(0);
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  transition: clip-path var(--transition-slow);
+  will-change: clip-path;
+}
+
+/* Revealed states */
+html.motion-ready [data-reveal].is-revealed,
+html.motion-ready [data-reveal="blur"].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+html.motion-ready [data-reveal="mask"].is-revealed {
+  clip-path: polygon(0 -20%, 100% -20%, 100% 120%, 0 120%); /* slightly oversized to prevent clipping artifacts */
+}
+
+/* ── SPOTLIGHT CURSOR ────────────────────────────────────── */
+#motion-spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+  z-index: 1; /* Below content but above background */
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+  mix-blend-mode: screen;
+}
+
+body:hover #motion-spotlight {
+  opacity: 1;
+}
+
+/* ── MAGNETIC ELEMENTS ───────────────────────────────────── */
+[data-magnetic] {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ── CTA MICRO-INTERACTIONS ──────────────────────────────── */
+.btn-primary {
+  transition: 
+    transform var(--m-duration-normal) var(--m-ease-spring),
+    box-shadow var(--m-duration-normal) var(--m-ease-spring),
+    border-color var(--m-duration-fast) var(--m-ease-out);
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform var(--m-duration-slow) var(--m-ease-out);
+  pointer-events: none;
+}
+
+/* Hover States */
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--glow-md);
+}
+
+.btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+.btn-primary .btn-arrow {
+  display: inline-block;
+  transition: transform var(--m-duration-normal) var(--m-ease-spring);
+}
+
+.btn-primary:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+@keyframes light-sweep {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* ── NAVIGATION MICRO-INTERACTIONS ───────────────────────── */
+.nav-links a {
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-fast);
+  opacity: 0.5;
+}
+
+.nav-links a:hover {
+  color: var(--text-white);
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ── SERVICE CARDS HOVER ─────────────────────────────────── */
+.service-module {
+  transition: transform var(--transition-medium), border-color var(--transition-medium), background-color var(--transition-medium);
+  will-change: transform;
+}
+
+.service-module:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(24, 34, 45, 0.6);
+}
+
+.service-module:hover .service-module__identity {
+  transform: translateZ(10px);
+}
+
+.service-module__content {
+  transition: transform var(--transition-medium);
+}
+
+.service-module:hover .service-module__content {
+  transform: translateY(-2px);
+}
+
+/* ── PAGE TRANSITIONS (NATIVE API) ───────────────────────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 600ms;
+  animation-timing-function: var(--ease-cinematic);
+}
+
+::view-transition-old(root) {
+  animation-name: fade-out-atmospheric;
+}
+
+::view-transition-new(root) {
+  animation-name: fade-in-atmospheric;
+}
+
+@keyframes fade-out-atmospheric {
+  0% { opacity: 1; transform: scale(1); filter: blur(0); }
+  100% { opacity: 0; transform: scale(0.98); filter: blur(4px); }
+}
+
+@keyframes fade-in-atmospheric {
+  0% { opacity: 0; transform: scale(1.02); filter: blur(4px); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+/* ── FALLBACK PAGE TRANSITION (JS-DRIVEN) ────────────────── */
+.page-transitioning {
+  pointer-events: none;
+}
+
+.page-transitioning .page-content {
+  animation: fade-out-atmospheric 600ms var(--ease-cinematic) forwards;
+}
+
+/* ── REDUCED MOTION ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html.motion-ready [data-reveal],
+  html.motion-ready [data-reveal="blur"],
+  html.motion-ready [data-reveal="mask"] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+  
+  #motion-spotlight {
+    display: none !important;
+  }
+  
+  [data-magnetic] {
+    transform: none !important;
+  }
+  
+  .btn-primary:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .btn-primary:hover::before {
+    animation: none !important;
+  }
+  
+  .service-module:hover {
+    transform: none !important;
+  }
+  
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
+/* ── HERO BACKGROUND AMBIENT MOVEMENT ────────────────────── */
+.hero__bg-image {
+  animation: hero-ambient-drift 40s linear infinite alternate;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+@keyframes hero-ambient-drift {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.03) translate(-1%, 1%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__bg-image {
+    animation: none !important;
+  }
+}

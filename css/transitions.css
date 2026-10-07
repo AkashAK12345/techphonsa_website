@@ -1,0 +1,222 @@
+/* ================================================================
+   CINEMATIC VIEW TRANSITIONS
+   ================================================================ */
+
+/* Exclude navigation from the root transition to keep it perfectly stable */
+.nav {
+  view-transition-name: main-nav;
+}
+
+::view-transition-old(main-nav),
+::view-transition-new(main-nav) {
+  animation: none;
+  opacity: 1;
+}
+
+/* Base styles for the root transition */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 850ms;
+  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  animation-fill-mode: forwards;
+}
+
+/* Ensure the new view is drawn on top */
+::view-transition-new(root) {
+  z-index: 2;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+/* ================================================================
+   DIRECTION: DOWN (Navigating to a section lower on the page)
+   New view enters from BELOW, sliding UP.
+   Old view slides UP and scales down.
+   ================================================================ */
+html[data-transition-dir="down"] ::view-transition-old(root) {
+  animation-name: slide-out-up;
+}
+html[data-transition-dir="down"] ::view-transition-new(root) {
+  animation-name: slide-in-up;
+}
+
+@keyframes slide-out-up {
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  100% { transform: scale(0.97) translateY(-80px); opacity: 0; }
+}
+
+@keyframes slide-in-up {
+  0% { 
+    clip-path: inset(0 0 100% 0); /* Clipped exactly at the bottom */
+    transform: translateY(150px);
+  }
+  100% { 
+    clip-path: inset(0 0 0 0); 
+    transform: translateY(0);
+  }
+}
+
+/* ================================================================
+   DIRECTION: UP (Navigating to a section higher on the page)
+   New view enters from ABOVE, sliding DOWN.
+   Old view slides DOWN and scales down.
+   ================================================================ */
+html[data-transition-dir="up"] ::view-transition-old(root) {
+  animation-name: slide-out-down;
+}
+html[data-transition-dir="up"] ::view-transition-new(root) {
+  animation-name: slide-in-down;
+}
+
+@keyframes slide-out-down {
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  100% { transform: scale(0.97) translateY(80px); opacity: 0; }
+}
+
+@keyframes slide-in-down {
+  0% { 
+    clip-path: inset(100% 0 0 0); /* Clipped exactly at the top */
+    transform: translateY(-150px);
+  }
+  100% { 
+    clip-path: inset(0 0 0 0); 
+    transform: translateY(0);
+  }
+}
+
+
+
+/* ================================================================
+   SCROLL-DRIVEN PHRASE TRANSITION
+   Between Home hero and Services. One large phrase travels
+   horizontally through this viewport as the user scrolls.
+   JS drives translateX — NO auto-play animation.
+   ================================================================ */
+
+/* ── OUTER STRIP — the clipping viewport ───────────────────────── */
+.ticker-strip {
+  position: relative;
+  width: 100%;
+  /* Tall enough for the oversized text to sit comfortably */
+  height: 130px;
+  /* Critical: clips the phrase that extends beyond screen edges */
+  overflow: hidden;
+  /* Prevent any interaction with page horizontal scroll */
+  contain: layout style;
+  /* Removed grey box and borders for seamless atmospheric blend */
+  background: transparent;
+  border-top: none;
+  border-bottom: none;
+  /* Ensure the text sits cleanly ON TOP of the bleeding atmosphere from the hero */
+  z-index: 15;
+  /* Edge fade — text enters/exits gracefully rather than hard-cutting */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent     0%,
+    rgba(0,0,0,1)   12%,
+    rgba(0,0,0,1)   88%,
+    transparent     100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent     0%,
+    rgba(0,0,0,1)   12%,
+    rgba(0,0,0,1)   88%,
+    transparent     100%
+  );
+}
+
+/* ── INNER TRACK — JS sets translateX on this ──────────────────── */
+.ticker-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  /* Allow the phrase to extend far beyond viewport width */
+  white-space: nowrap;
+  /* JS will drive this — start position set by initScrollPhrase() */
+  will-change: transform;
+  /* Ensure no browser-imposed overflow causes page scroll */
+  width: max-content;
+}
+
+/* ── THE SINGLE PHRASE ─────────────────────────────────────────── */
+.ticker-content {
+  display: inline-block;
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
+  /* Large — intentionally oversized, extends beyond viewport */
+  font-size: clamp(72px, 9vw, 148px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  color: rgba(244, 244, 242, 0.92);
+  /* No wrap — single line always */
+  white-space: nowrap;
+  /* Padding so the start of text is off-screen right initially */
+  padding-left: 8vw;
+}
+
+/* ── REDUCED-MOTION: static, centered, readable ─────────────────── */
+.ticker-static {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Show static text, hide animated track */
+  .ticker-track {
+    display: none;
+  }
+  .ticker-strip {
+    -webkit-mask-image: none;
+    mask-image: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: clamp(20px, 5vw, 80px);
+  }
+  .ticker-static {
+    display: block;
+    font-family: 'Geist', 'Inter', system-ui, sans-serif;
+    font-size: clamp(28px, 4vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: rgba(244, 244, 242, 0.75);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .ticker-strip {
+    height: 110px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ticker-strip {
+    height: 90px;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent  0%,
+      rgba(0,0,0,1) 6%,
+      rgba(0,0,0,1) 94%,
+      transparent  100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent  0%,
+      rgba(0,0,0,1) 6%,
+      rgba(0,0,0,1) 94%,
+      transparent  100%
+    );
+  }
+  .ticker-content {
+    font-size: clamp(48px, 13vw, 80px);
+    padding-left: 6vw;
+  }
+}

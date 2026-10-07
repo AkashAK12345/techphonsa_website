@@ -10,7 +10,6 @@
   pointer-events: none;
   overflow: hidden;
   user-select: none;
-  background: var(--bg-void);
 }
 
 .bg-orb {
@@ -20,7 +19,7 @@
   width: 150vw;
   height: 150vh;
   transform: translate(-50%, -50%);
-  opacity: 0.8;
+  opacity: 0.9;
   pointer-events: none;
 }
 

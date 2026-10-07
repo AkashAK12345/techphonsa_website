@@ -4,13 +4,18 @@
 
 /* ── BACKGROUND ─────────────────────────────────────────────── */
 .bg-about {
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-bg);
+  display: none;
+}
+
+.bg-orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150vw;
+  height: 150vh;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
   pointer-events: none;
-  overflow: hidden;
-  user-select: none;
-  background: var(--bg-void);
 }
 
 .bg-orb {
@@ -73,8 +78,8 @@
 }
 
 .about-sidebar-panel {
-  background: rgba(24, 34, 45, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(17, 26, 20, 0.72); box-shadow: none; backdrop-filter: blur(12px);
+  border: 1px solid var(--border-dim);
   border-radius: var(--r-md);
   padding: var(--s-6);
   backdrop-filter: blur(12px);
@@ -128,8 +133,8 @@
 
 /* Operator section (smaller identifier block) */
 .about-operator {
-  background: rgba(24, 34, 45, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(17, 26, 20, 0.72); box-shadow: none; backdrop-filter: blur(12px);
+  border: 1px solid var(--border-dim);
   border-radius: var(--r-md);
   padding: var(--s-6);
   backdrop-filter: blur(12px);
@@ -139,7 +144,7 @@
   font-family: var(--font-display);
   font-size: var(--text-xl);
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }

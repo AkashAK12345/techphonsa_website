@@ -13,61 +13,64 @@
 /* ── CUSTOM PROPERTIES ─────────────────────────────────────── */
 :root {
   /* Backgrounds */
-  --bg-void:  #05080D;
-  --bg-base:  #0A0F16;
-  --bg-deep:  #111923;
-  --panel-1:  #18222D;
-  --panel-2:  #27313C; /* refined panel steps */
-  --panel-3:  #394554;
+  --bg-primary:    #0F0F11; /* Near-black / charcoal */
+  --bg-secondary:  #141417; /* Darker variant */
+  --surface:       #161619; /* Card base */
+  --surface-soft:  #1C1C20; /* Slightly elevated card */
+  --bg-void:       var(--bg-primary);
+  --bg-base:       var(--bg-secondary);
+  --bg-elevated:   var(--surface);
 
   /* Text */
-  --text-primary:   #FFFFFF;
-  --text-white:     #FFFFFF;
-  --text-secondary: #C4C9CE;
-  --text-muted:     #8A949F;
+  --text-primary:  #F4F4F2; /* Off-white */
+  --text-secondary:#92919B; /* Cool gray */
+  --text-muted:    #686873; /* Dimmer cool gray */
+  --text-strong:   #FFFFFF;
 
-  /* Technical accents (Soft silver/gray to contrast against dark backgrounds) */
-  --blue-primary: #C4C9CE;
-  --blue-bright:  #E9ECEF;
-  --blue-dark:    #4A5563;
-  --cyan-subtle:  #A5ADB6;
+  /* Atmospheric Lights (for gradients, not UI borders) */
+  --atm-cyan:      #22D3EE;
+  --atm-blue:      #3B82F6;
+  --atm-violet:    #8B5CF6;
+  --atm-magenta:   #D946EF;
+  --atm-coral:     #FB7185;
 
-  /* Status colors — only for genuine states */
-  --status-ok:   #059669; 
-  --status-warn: #D97706; 
-  --status-crit: #DC2626; 
+  /* Legacy aliases for compatibility (mapping to new neutral/clean palette where needed) */
+  --accent-primary: #F4F4F2; 
+  --accent-warm:    #92919B;
+  --blue-primary:   #F4F4F2;
+  --status-ok:      #F4F4F2;
+  --status-warn:    #92919B;
+  --status-crit:    #686873;
 
-  /* Border system */
-  /* Borders are barely visible, simulating glass reflection instead of hard lines */
+  /* Borders */
   --border-dim:    rgba(255, 255, 255, 0.03);
   --border-mid:    rgba(255, 255, 255, 0.06);
   --border-active: rgba(255, 255, 255, 0.12);
-  --border-bright: rgba(255, 255, 255, 0.20);
 
-  /* Glows — very soft, desaturated atmospheric illumination */
-  --glow-sm: 0 4px  12px rgba(0, 0, 0, 0.25), 0 0 2px rgba(233, 236, 239, 0.05);
-  --glow-md: 0 12px 30px rgba(0, 0, 0, 0.35), 0 0 4px rgba(233, 236, 239, 0.06);
-  --glow-lg: 0 24px 60px rgba(0, 0, 0, 0.50), 0 0 8px rgba(233, 236, 239, 0.08);
+  /* Shadows */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.6);
 
   /* Typography */
-  --font-display: 'Oxanium', 'Rajdhani', system-ui, sans-serif;
-  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
-  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Playfair Display', serif;
+  --font-mono:    'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body:    'Geist', 'Inter', system-ui, -apple-system, sans-serif;
 
   /* Type scale */
-  --text-xs:   0.6875rem;  /* 11px — mono metadata only   */
-  --text-sm:   0.75rem;    /* 12px — secondary labels      */
-  --text-base: 0.9375rem;  /* 15px — body copy             */
-  --text-lg:   1.0625rem;  /* 17px — large body            */
-  --text-xl:   1.25rem;    /* 20px — small headings        */
-  --text-2xl:  1.5625rem;  /* 25px                         */
-  --text-3xl:  2rem;       /* 32px — section headings      */
-  --text-4xl:  2.75rem;    /* 44px — page headings         */
-  --text-5xl:  3.75rem;    /* 60px — large display         */
-  --text-6xl:  5rem;       /* 80px — hero headings         */
-  --text-7xl:  6.5rem;     /* 104px — brand display        */
+  --text-xs:   0.75rem;    /* 12px */
+  --text-sm:   0.875rem;   /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.5rem;     /* 24px */
+  --text-3xl:  2.25rem;    /* 36px */
+  --text-4xl:  3.5rem;     /* 56px */
+  --text-5xl:  4.5rem;     /* 72px */
+  --text-6xl:  5.5rem;     /* 88px */
+  --text-7xl:  7rem;       /* 112px */
 
-  /* Spacing (4px grid) */
+  /* Spacing */
   --s-1:  4px;   --s-2:  8px;   --s-3: 12px;
   --s-4: 16px;   --s-5: 20px;   --s-6: 24px;
   --s-8: 32px;   --s-10: 40px;  --s-12: 48px;
@@ -75,28 +78,32 @@
   --s-32: 128px;
 
   /* Geometry */
-  --r-sm: 2px;
-  --r-md: 4px;
-  --r-lg: 6px;
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
 
   /* Transitions */
-  --t-fast:   150ms ease-out;
-  --t-normal: 220ms ease-out;
-  --t-slow:   350ms ease-out;
+  --t-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-slow:   500ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Z-index layers */
   --z-bg:      0;
+  --z-atm:     5;
   --z-content: 10;
   --z-ui:      20;
   --z-nav:     30;
   --z-overlay: 40;
 
   /* Layout */
-  --container-max: 1160px;
-  --container-px:  clamp(var(--s-4), 4vw, var(--s-10));
-  --nav-h:         64px;
-  --section-py:    clamp(var(--s-12), 6vw, var(--s-24));
+  --container-max: 1200px;
+  --container-px:  clamp(var(--s-4), 5vw, var(--s-10));
+  --nav-h:         80px;
+  --section-py:    clamp(var(--s-16), 12vw, var(--s-32));
 }
+
+
+
 
 /* ── RESET ─────────────────────────────────────────────────── */
 *, *::before, *::after {
@@ -111,15 +118,7 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-body {
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  color: var(--text-primary);
-  background-color: var(--bg-void);
-  line-height: 1.65;
-  overflow-x: hidden;
-  min-height: 100vh;
-}
+
 
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
@@ -157,9 +156,8 @@ h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 700;
   line-height: 1.1;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: var(--text-white);
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
 }
 
 p {
@@ -216,4 +214,47 @@ strong { color: var(--text-primary); font-weight: 600; }
 
 .hud-bg * {
   pointer-events: none !important;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+/* ── ATMOSPHERIC GRADIENTS ───────────────────────────────────── */
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Allow lights to bleed vertically for seamless section transitions */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+.atm-light {
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  max-width: 800px;
+  max-height: 800px;
+  border-radius: 50%;
+  filter: blur(120px);
+  -webkit-filter: blur(120px);
+  opacity: 0.15;
+  mix-blend-mode: screen;
+}
+
+.atm-cyan    { background: var(--atm-cyan); }
+.atm-blue    { background: var(--atm-blue); }
+.atm-violet  { background: var(--atm-violet); }
+.atm-magenta { background: var(--atm-magenta); }
+.atm-coral   { background: var(--atm-coral); }
+
+.atmosphere--globe .atm-light {
+  width: 800px;
+  height: 800px;
+  opacity: 0.08; /* Very dim volumetric backlight */
 }
