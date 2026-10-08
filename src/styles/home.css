@@ -485,180 +485,159 @@
     border-radius: 8px;
   }
 }
-/* ── HOW WE WORK INTRO ────────────────────────────────────────── */
-.hww-intro-track {
+/* ── HOW WE WORK (EDITORIAL PROCESS) ────────────────────────── */
+.hww-editorial-section {
   position: relative;
-  width: 100%;
-  height: 100vh;
   z-index: var(--z-content);
+  background-color: var(--bg-void); /* dark editorial background */
+  color: var(--text-strong);
 }
 
-.hww-intro-sticky::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
+.hww-scroll-track {
+  position: relative;
+  height: 250vh; 
   width: 100%;
-  height: 100%;
-  /* Solid color precisely matching the top edge of columns-bg.jpg (#3ca4ce) for seamless transition */
-  background: #3ca4ce;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  z-index: -1;
-  pointer-events: none;
 }
 
-.hww-intro-track.hww-bg-active .hww-intro-sticky::before {
-  opacity: 1;
-}
-
-.hww-intro-sticky {
+.hww-sticky-viewport {
   position: sticky;
   top: 0;
-  width: 100%;
   height: 100vh;
+  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding-top: var(--nav-h);
 }
 
-.hww-intro-words {
+.hww-headline {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
+  gap: clamp(12px, 2.5vw, 40px);
   justify-content: center;
-  gap: clamp(12px, 3vw, 40px);
-  width: 100%;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 8vw, 120px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  margin: 0;
   padding: 0 20px;
 }
 
 .hww-word {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 12vw, 220px);
-  font-weight: 700;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
-  text-align: center;
-  will-change: transform;
-  transform: translateY(-100vh);
+  will-change: opacity, transform;
+  /* initial state (JS takes over) */
+  opacity: 0;
+  transform: translateY(40px);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hww-intro-track {
+  .hww-scroll-track {
     height: auto;
-    padding: clamp(60px, 10vh, 120px) 20px;
+    padding: 120px 0;
   }
-  .hww-intro-sticky {
+  .hww-sticky-viewport {
     position: static;
     height: auto;
-    padding-top: 0;
   }
   .hww-word {
-    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
-/* ── HOW WE WORK PILLARS (STATIC) ────────────────────── */
-.hww-pillars-static {
-  position: relative;
-  width: 100%;
-  z-index: var(--z-content);
+.hww-principles-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-px) 160px;
 }
 
-.hww-static-container {
-  position: relative;
-  width: 100%;
-  display: block;
+.hww-principles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 80px 60px;
 }
 
-.hww-static-photo {
-  display: block;
-  width: 100%;
-  height: auto;
-  user-select: none;
-  pointer-events: none;
-  -webkit-user-drag: none;
+.hww-principle-item {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-/* ── PRINCIPLE CARDS ─────────────────────────────────────── */
-.hww-static-card {
-  position: absolute;
-  /* Position cards in the middle of the full uncropped image */
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20%;
-  text-align: center;
-
-  /* Frosted card so text is legible over cream stone texture */
-  background: rgba(255, 251, 240, 0.70);
-  backdrop-filter: blur(8px) saturate(1.3);
-  -webkit-backdrop-filter: blur(8px) saturate(1.3);
-  border-radius: 8px;
-  padding: clamp(12px, 2vh, 22px) clamp(8px, 1.4vw, 18px);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.18), 0 1px 4px rgba(0,0,0,0.1);
+.hww-principle-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-/*
-  Horizontal centres match each pillar in columns-bg.jpg
-  (roughly at 13%, 38%, 62%, 87% across the frame).
-  Cards are 20% wide so left = centre − 10%.
-*/
-#hww-sc-1 { left: 3%; }
-#hww-sc-2 { left: 28%; }
-#hww-sc-3 { left: 52%; }
-#hww-sc-4 { left: 77%; }
-
-.hww-static-card__num {
-  display: block;
+.hww-principle-num {
   font-family: var(--font-mono);
-  font-size: clamp(9px, 1vw, 12px);
-  letter-spacing: 0.3em;
-  color: rgba(60, 40, 12, 0.5);
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 0.4em;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8c8f93;
+  letter-spacing: 0.1em;
 }
 
-.hww-static-card__title {
+.hww-principle-title {
   font-family: var(--font-display);
-  font-size: clamp(12px, 1.45vw, 19px);
-  font-weight: 800;
-  color: #2a1a06;
-  line-height: 1.18;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.5em;
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: 600;
+  color: var(--text-strong);
+  margin: 0;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.3;
 }
 
-.hww-static-card__body {
+.hww-principle-rule {
+  border: none;
+  height: 1px;
+  background-color: var(--border-dim);
+  margin: 0;
+  width: 100%;
+}
+
+.hww-principle-desc {
   font-family: var(--font-body);
-  font-size: clamp(10px, 1vw, 13px);
-  color: rgba(40, 26, 8, 0.78);
-  line-height: 1.65;
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 90%;
 }
 
-/* ── REDUCED MOTION ──────────────────────────────────────── */
-/* No specific reduced-motion needed for static pillars as they have no animation */
-
-/* ── MOBILE (≤640px) ──────────────────────────────────────── */
-@media (max-width: 640px) {
-  .hww-static-card { width: 22%; padding: 8px 6px; }
-  .hww-static-card__body { display: none; }
-  #hww-sc-1 { left: 1.5%; }
-  #hww-sc-2 { left: 27%; }
-  #hww-sc-3 { left: 52%; }
-  #hww-sc-4 { left: 76%; }
+/* Subtle reveal for principle items */
+.hww-principle-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ── MOBILE (≤640px) ──────────────────────────────────────── */
-@media (max-width: 640px) {
-  .hww-principle { width: 22%; padding: 8px 6px; }
-  .hww-principle__body { display: none; }
-  #hww-principle-1 { left: 1.5%; }
-  #hww-principle-2 { left: 27%; }
-  #hww-principle-3 { left: 52%; }
-  #hww-principle-4 { left: 76%; }
+.hww-principle-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hww-principle-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hww-principles-grid {
+    gap: 60px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hww-principles-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  .hww-principle-desc {
+    max-width: 100%;
+  }
 }
