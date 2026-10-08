@@ -120,34 +120,54 @@ const HowWeWork = () => {
       const isMobile = sw < 640;
       const isTablet = sw < 960;
 
-      // Outer margins from the stage edges (responsive vw/vh based)
-      const marginX = isMobile ? 20 : isTablet ? 32 : Math.max(60, sw * 0.05);
-      const marginY = isMobile ? 24 : isTablet ? 32 : Math.max(60, sh * 0.05);
+      // Outer margins (substantial padding from the edges to feel editorial, not pinned)
+      const marginX = isMobile ? 24 : isTablet ? 40 : Math.max(64, sw * 0.08);
+      const marginY = isMobile ? 24 : isTablet ? 40 : Math.max(64, sh * 0.06);
 
-      // Central gap reservation
-      const centralGapX = isMobile ? 16 : isTablet ? 40 : Math.max(80, sw * 0.08);
-      const centralGapY = isMobile ? 24 : isTablet ? 40 : Math.max(80, sh * 0.08);
+      // Central gaps (moderate, not massive)
+      const centralGapX = isMobile ? 16 : isTablet ? 32 : Math.max(40, sw * 0.04);
+      const centralGapY = isMobile ? 16 : isTablet ? 32 : Math.max(40, sh * 0.04);
 
-      // Calculate max available width and height for a single card
-      const maxCardW = (sw - (marginX * 2) - centralGapX) / 2;
-      const maxCardH = (sh - (marginY * 2) - centralGapY) / 2;
+      // 1. Establish preferred card width based heavily on viewport width
+      // The cards perfectly fill the available space after margins and gap
+      const maxAvailableW = (sw - (marginX * 2) - centralGapX) / 2;
+      const cardW = Math.max(160, maxAvailableW); // Minimum bound just for extreme edge cases
 
-      // Enforce limits for the cards so they remain substantial but never overflow
-      // Max heights/widths accommodate future images
-      const cardW = Math.max(140, Math.min(460, maxCardW));
-      // Increased absolute minimum height to 320 to accommodate the 40% image + text safely
-      const cardH = Math.max(320, Math.min(560, maxCardH));
+      // 2. Establish card height
+      // Aspect ratio for the image container (matches CSS media queries)
+      const imgRatio = isMobile ? (9 / 16) : (11 / 16);
+      
+      // Required height for content area to prevent clipping the longest description
+      // Number + Title (can wrap) + Divider + 5-line Desc + Padding requires generous space
+      const contentH = isMobile ? 260 : 280;
 
-      const cx = sw / 2;
-      const cy = sh / 2;
+      // All 4 cards have exactly identical dimensions
+      const cardH = (cardW * imgRatio) + contentH;
+
+      // 3. Position the cards using their actual dimensions
+      const leftX = marginX;
+      const rightX = sw - marginX - cardW;
+      
+      const topY = marginY;
+      const bottomY = marginY + cardH + centralGapY;
+
+      // 4. Protect the next section from overlap
+      // Since cards are now substantial, their 2x2 grid might exceed 100vh (sh).
+      // We MUST expand the sticky container height so it doesn't clip them, and so it scrolls 
+      // natively away before the About section enters.
+      const totalRequiredH = marginY + cardH + centralGapY + cardH + marginY;
+      const stickyEl = stageEl.parentElement;
+      if (stickyEl) {
+        stickyEl.style.height = `${Math.max(sh, totalRequiredH)}px`;
+      }
 
       return {
         cardW, cardH,
-        // Cards anchor exactly to the margins for maximum spread
-        finalCX: (col: number) => col === 0 ? marginX + cardW / 2 : sw - marginX - cardW / 2,
-        finalCY: (row: number) => row === 0 ? marginY + cardH / 2 : sh - marginY - cardH / 2,
-        stackCX: cx,
-        stackCY: cy,
+        // Calculate center points for absolute positioning based on exactly the requested coordinate system
+        finalCX: (col: number) => col === 0 ? leftX + cardW / 2 : rightX + cardW / 2,
+        finalCY: (row: number) => row === 0 ? topY + cardH / 2 : bottomY + cardH / 2,
+        stackCX: sw / 2,
+        stackCY: Math.max(sh, totalRequiredH) / 2,
       };
     };
 
@@ -157,11 +177,13 @@ const HowWeWork = () => {
       const prog = prefersReduced ? 1 : trackProgress(deckTrackRef.current);
       const geo  = getCardGeometry(stageRef.current);
 
+      // 7. FINAL COMPOSITION MUST BE STABLE BEFORE LEAVING THE DECK
+      // All cards converge simultaneously at 0.70 progress, leaving a 30% HOLD PHASE.
       const stages = [
-        { start: 0.00, end: 0.25 },
-        { start: 0.25, end: 0.50 },
-        { start: 0.50, end: 0.75 },
-        { start: 0.75, end: 1.00 },
+        { start: 0.00, end: 0.70 },
+        { start: 0.00, end: 0.70 },
+        { start: 0.00, end: 0.70 },
+        { start: 0.00, end: 0.70 },
       ];
 
       CARDS.forEach((card, i) => {

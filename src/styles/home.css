@@ -554,9 +554,8 @@
   top: var(--nav-h, 80px);
   height: calc(100vh - var(--nav-h, 80px));
   width: 100%;
-  /* overflow:hidden is CRITICAL — clips absolutely-positioned cards
-     so they cannot visually escape into adjacent sections */
-  overflow: hidden;
+  /* overflow:visible allows cards larger than the viewport to extend safely down into the 500vh track */
+  overflow: visible;
   /* pointer-events off for the sticky frame itself; re-enabled per card by JS */
   pointer-events: none;
 }
@@ -565,7 +564,7 @@
 .hww-deck-stage {
   position: absolute;
   inset: 0; /* top:0 right:0 bottom:0 left:0 — fills sticky exactly */
-  overflow: hidden; /* belt-and-suspenders: clips rotated card corners */
+  overflow: visible;
 }
 
 .hww-deck-eyebrow {
@@ -586,36 +585,36 @@
 
 /* ── Card base ───────────────────────────────────────────── */
 .hww-card {
-  /*
-    JS sets position:absolute (not fixed), left, top, width, height,
-    transform, z-index each animation frame.
-    The positioning context is .hww-deck-stage (inset:0 inside sticky).
-    Cards are fully contained — they cannot escape the section.
-  */
-  background: var(--surface);   /* #161619 — fully opaque, no transparency */
+  background: var(--surface);
   border: 1px solid rgba(255, 255, 255, 0.07);
   display: flex;
   flex-direction: column;
-  gap: 0;
-  padding: 0; /* padding moved to content wrapper so image can be flush */
-  overflow: hidden;
+  padding: 0;
   border-radius: 4px;
-  box-shadow: none;             /* no shadow bleed around stack */
-  transition: none;             /* all motion is JS-driven */
-  will-change: transform, left, top;
+  overflow: hidden;
+  box-shadow: none;
   isolation: isolate;
-  /* Deck starts with cards not yet positioned by JS — hide until first frame */
+  will-change: transform, left, top;
   opacity: 0;
 }
 
-/* ── Card internals ───────────────────────────────────────── */
+/* ── Card internals ──────────────────── */
 .hww-card__image-wrap {
   width: 100%;
-  /* 38% gives a substantial image that doesn't completely crush text */
-  height: 38%;
+  /* Use aspect-ratio to ensure the image container is always identical across cards 
+     and proportional to the card width. 16/11 gives a beautiful wide editorial crop 
+     that occupies a significant portion of the card. */
+  aspect-ratio: 16 / 11;
   flex-shrink: 0;
   overflow: hidden;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 639px) {
+  .hww-card__image-wrap {
+    /* Use a wider aspect ratio on mobile to save vertical space so the 2x2 grid fits perfectly */
+    aspect-ratio: 16 / 9;
+  }
 }
 
 .hww-card__image {
@@ -623,8 +622,6 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  /* subtle darkening for editorial feel if the image is too bright */
-  opacity: 0.9;
 }
 
 .hww-card__content {
@@ -633,6 +630,7 @@
   flex-grow: 1;
   padding: clamp(16px, 2.5vw, 32px);
   gap: 0;
+  color: var(--text-strong); /* Revert from forced #fff if any */
 }
 
 .hww-card__num {
