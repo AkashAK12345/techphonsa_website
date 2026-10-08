@@ -1,4 +1,8 @@
 import { useEffect, useRef } from 'react';
+import hww1 from '../../assets/hww1.jpg';
+import hww2 from '../../assets/hww2.jpg';
+import hww3 from '../../assets/hww3.jpg';
+import hww4 from '../../assets/hww4.jpg';
 
 /* ─── card data ─────────────────────────────────────────────────────── */
 const CARDS = [
@@ -9,6 +13,7 @@ const CARDS = [
     body: 'Every project is scoped, overseen, and delivered directly by our team, from first call to final handoff.',
     col: 0, // 0 = left, 1 = right
     row: 0, // 0 = top,  1 = bottom
+    image: hww1,
   },
   {
     id: 'hww-card-2',
@@ -17,6 +22,7 @@ const CARDS = [
     body: 'Hands-on experience with RAG systems, vector databases, and applied machine learning — not marketing language borrowed from bigger companies.',
     col: 1,
     row: 0,
+    image: hww2,
   },
   {
     id: 'hww-card-3',
@@ -25,6 +31,7 @@ const CARDS = [
     body: 'We take on a limited number of clients at a time, so every project gets real attention instead of a place in a queue.',
     col: 0,
     row: 1,
+    image: hww3,
   },
   {
     id: 'hww-card-4',
@@ -33,6 +40,7 @@ const CARDS = [
     body: 'Setup costs and monthly retainers are explained upfront — no hidden fees, no vague "contact us for a quote" stalling.',
     col: 1,
     row: 1,
+    image: hww4,
   },
 ] as const;
 
@@ -127,7 +135,8 @@ const HowWeWork = () => {
       // Enforce limits for the cards so they remain substantial but never overflow
       // Max heights/widths accommodate future images
       const cardW = Math.max(140, Math.min(460, maxCardW));
-      const cardH = Math.max(200, Math.min(560, maxCardH));
+      // Increased absolute minimum height to 320 to accommodate the 40% image + text safely
+      const cardH = Math.max(320, Math.min(560, maxCardH));
 
       const cx = sw / 2;
       const cy = sh / 2;
@@ -267,10 +276,15 @@ const HowWeWork = () => {
                 className="hww-card"
                 aria-label={`Principle ${card.num}: ${card.title}`}
               >
-                <span className="hww-card__num">{card.num}</span>
-                <h3 className="hww-card__title">{card.title}</h3>
-                <hr className="hww-card__rule" />
-                <p className="hww-card__body">{card.body}</p>
+                <div className="hww-card__image-wrap">
+                  <img src={card.image} alt={`How We Work — ${card.title}`} className="hww-card__image" />
+                </div>
+                <div className="hww-card__content">
+                  <span className="hww-card__num">{card.num}</span>
+                  <h3 className="hww-card__title">{card.title}</h3>
+                  <hr className="hww-card__rule" />
+                  <p className="hww-card__body">{card.body}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -288,10 +302,15 @@ const HowWeWork = () => {
       <div className="hww-static-fallback" aria-hidden="true">
         {CARDS.map((card) => (
           <div key={`static-${card.id}`} className="hww-static-card">
-            <span className="hww-card__num">{card.num}</span>
-            <h3 className="hww-card__title">{card.title}</h3>
-            <hr className="hww-card__rule" />
-            <p className="hww-card__body">{card.body}</p>
+            <div className="hww-card__image-wrap">
+              <img src={card.image} alt="" className="hww-card__image" />
+            </div>
+            <div className="hww-card__content">
+              <span className="hww-card__num">{card.num}</span>
+              <h3 className="hww-card__title">{card.title}</h3>
+              <hr className="hww-card__rule" />
+              <p className="hww-card__body">{card.body}</p>
+            </div>
           </div>
         ))}
       </div>

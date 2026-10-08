@@ -597,7 +597,7 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: clamp(24px, 3vw, 40px);
+  padding: 0; /* padding moved to content wrapper so image can be flush */
   overflow: hidden;
   border-radius: 4px;
   box-shadow: none;             /* no shadow bleed around stack */
@@ -609,6 +609,32 @@
 }
 
 /* ── Card internals ───────────────────────────────────────── */
+.hww-card__image-wrap {
+  width: 100%;
+  /* 38% gives a substantial image that doesn't completely crush text */
+  height: 38%;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.hww-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* subtle darkening for editorial feel if the image is too bright */
+  opacity: 0.9;
+}
+
+.hww-card__content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: clamp(16px, 2.5vw, 32px);
+  gap: 0;
+}
+
 .hww-card__num {
   display: block;
   font-family: var(--font-mono);
