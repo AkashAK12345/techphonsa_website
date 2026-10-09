@@ -753,5 +753,249 @@
   }
 }
 
+/* ================================================================
+   ABOUT SECTION REDESIGN
+   ================================================================ */
 
+.about-section {
+  position: relative;
+  padding-block: var(--s-24);
+  background-color: var(--bg-void);
+  z-index: var(--z-content);
+  color: var(--text-strong);
+}
 
+.about-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-16);
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+/* ── EDITORIAL SECTION HEADING ──────────────────────────────── */
+.about-editorial-heading {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: var(--s-8);
+}
+
+.section-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: #8c8f93;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.about-block {
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  gap: var(--s-10);
+  align-items: start;
+}
+
+.about-intro__title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+  margin-bottom: var(--s-8);
+}
+
+.about-intro__lead {
+  font-family: var(--font-body);
+  font-size: clamp(18px, 1.5vw, 24px);
+  line-height: 1.6;
+  color: var(--text-strong);
+  max-width: 720px;
+}
+
+.about-prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  max-width: 640px;
+}
+
+.about-prose p {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.about-divider {
+  border: none;
+  height: 1px;
+  background: var(--border-dim);
+  margin: 0;
+}
+
+/* Technical Expertise */
+.expertise-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.expertise-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: var(--s-6);
+  padding-block: var(--s-8);
+  border-bottom: 1px solid var(--border-dim);
+  align-items: baseline;
+}
+
+.expertise-item:first-child {
+  border-top: 1px solid var(--border-dim);
+}
+
+.expertise-item__num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.expertise-item__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-6);
+  align-items: baseline;
+}
+
+.expertise-item__title {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-strong);
+  margin: 0;
+}
+
+.expertise-item__desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Benefits Section */
+.about-benefits-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-10);
+  padding-top: var(--s-8);
+}
+
+.about-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-8);
+}
+
+.benefit-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--border-dim);
+}
+
+.benefit-item__num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.benefit-item__title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-strong);
+  margin: 0;
+}
+
+.benefit-item__desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .about-block {
+    grid-template-columns: 1fr;
+    gap: var(--s-6);
+  }
+  
+  .about-block__left {
+    margin-bottom: var(--s-2);
+  }
+
+  .expertise-item__content {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+  }
+
+  .about-benefits {
+    grid-template-columns: 1fr;
+    gap: var(--s-10);
+  }
+}
+
+@media (max-width: 768px) {
+  .about-benefits {
+    grid-template-columns: 1fr;
+    gap: var(--s-8);
+  }
+}
+
+/* ================================================================
+   ABOUT SECTION SCROLL REVEAL
+   ================================================================ */
+.about-reveal {
+  opacity: 0.12;
+  transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity;
+}
+.about-reveal.is-revealed {
+  opacity: 1;
+}
+
+.about-heading-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+.about-heading-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-reveal, .about-heading-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

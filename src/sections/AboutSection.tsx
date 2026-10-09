@@ -1,72 +1,194 @@
+import { useEffect, useRef } from 'react';
+
 const AboutSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const editorialHeadingRef = useRef<HTMLHeadingElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const p1Ref = useRef<HTMLParagraphElement>(null);
+  const p2Ref = useRef<HTMLParagraphElement>(null);
+  const p3Ref = useRef<HTMLParagraphElement>(null);
+  const p4Ref = useRef<HTMLParagraphElement>(null);
+  const p5Ref = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    let ticking = false;
+
+    const updateVisibility = () => {
+      const viewportHeight = window.innerHeight;
+      const triggerPoint = viewportHeight * 0.8; // Trigger when element is 20% from the bottom
+
+      const checkElement = (el: HTMLElement | null) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.top < triggerPoint) {
+          el.classList.add('is-revealed');
+        } else {
+          el.classList.remove('is-revealed');
+        }
+      };
+
+      checkElement(editorialHeadingRef.current);
+      checkElement(headingRef.current);
+      checkElement(p1Ref.current);
+      checkElement(p2Ref.current);
+      checkElement(p3Ref.current);
+      checkElement(p4Ref.current);
+      checkElement(p5Ref.current);
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial check
+    updateVisibility();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <>
-      <header id="about" className="about-header section" aria-labelledby="about-title">
-        <div className="container">
-          <span className="section-header__eyebrow">Our Origin</span>
-          <h1 className="section-header__title section-header__title--large anim-fade-up" id="about-title">
-            About the System
-          </h1>
-          <span className="section-header__rule" aria-hidden="true"></span>
-        </div>
-      </header>
+    <section ref={sectionRef} id="about" className="about-section section" aria-labelledby="about-title">
+      <div className="container about-container">
 
-      <section className="about-origin section" aria-labelledby="origin-heading">
-        <div className="container">
-          <div className="about-origin__layout">
-            <div className="about-origin__prose">
-              <h2 className="sr-only" id="origin-heading">Our story</h2>
-              <p className="anim-fade-up">
-                Techphonsa started with a simple observation: most small businesses either don't have a website that actually works for them, or they're stuck doing repetitive work manually — following up on leads, replying to the same questions, updating spreadsheets — because the tools that could fix that feel built for enterprises with entire IT teams, not a five-person shop.
-              </p>
-              <p className="anim-fade-up anim-fade-up--delay-1">
-                We build the practical version of that: a real, working website first, then automation that quietly handles the busywork in the background, and — once it makes sense for your business — AI features that actually solve a specific problem instead of being AI for the sake of it.
-              </p>
-              <p className="anim-fade-up anim-fade-up--delay-2">
-                Techphonsa is founded by Akash, an engineer with hands-on experience in AI/ML — retrieval-augmented generation, vector search, and automated transcription systems — applied here to solve practical problems: getting a small business online, and making sure leads don't fall through the cracks.
-              </p>
-              <p className="anim-fade-up anim-fade-up--delay-3">
-                We're early, and intentionally small. Every project is scoped, overseen, and delivered directly by our team — occasionally supported by trusted collaborators for specialized work — so quality stays consistent even as we take on more.
-              </p>
-            </div>
+        {/* EDITORIAL SECTION HEADING */}
+        <h2 ref={editorialHeadingRef} className="about-editorial-heading about-heading-reveal" aria-hidden="true">
+          About Techphonsa
+        </h2>
 
-            <aside className="about-origin__sidebar" aria-label="Technical background">
-              <div className="about-operator hud-panel anim-fade-up">
-                <div className="hud-panel__label">Operator</div>
-                <p className="about-operator__name">Akash</p>
-                <p className="about-operator__role">// FOUNDER &amp; ENGINEER</p>
-                <div className="about-operator__status">
-                  <span className="sys-status sys-status--ok" aria-label="Status: active">
-                    <span className="sys-status__dot"></span>
-                    ACTIVE
-                  </span>
-                </div>
-              </div>
-
-              <div className="about-sidebar-panel hud-panel anim-fade-up anim-fade-up--delay-1">
-                <p className="about-sidebar-panel__title">Technical Background</p>
-                <ul className="about-sidebar-panel__list" role="list">
-                  <li className="about-sidebar-panel__item">AI-powered search &amp; retrieval (RAG) — for smart document/FAQ assistants</li>
-                  <li className="about-sidebar-panel__item">Workflow automation (n8n) — for lead routing and back-office tasks</li>
-                  <li className="about-sidebar-panel__item">Vector search &amp; semantic matching — for accurate AI-driven recommendations</li>
-                  <li className="about-sidebar-panel__item">Applied machine learning — for lead scoring and data classification</li>
-                  <li className="about-sidebar-panel__item">Full-stack web development — for the websites we build</li>
-                </ul>
-              </div>
-
-              <div className="about-sidebar-panel hud-panel anim-fade-up anim-fade-up--delay-2">
-                <p className="about-sidebar-panel__title">What this means for you</p>
-                <ul className="about-sidebar-panel__list" role="list">
-                  <li className="about-sidebar-panel__item">No middlemen — you work directly with the team building your system</li>
-                  <li className="about-sidebar-panel__item">No guessing — we understand what we're building</li>
-                  <li className="about-sidebar-panel__item">No pretending — we'll tell you what AI can and can't do for you right now</li>
-                </ul>
-              </div>
-            </aside>
+        {/* 1. INTRODUCTION */}
+        <div className="about-block about-intro">
+          <div className="about-block__left">
+            <span className="section-label">ABOUT TECHPHONSA</span>
+          </div>
+          <div className="about-block__right">
+            <h2 ref={headingRef} className="about-intro__title about-heading-reveal" id="about-title">
+              A technology studio<br />for practical problems.
+            </h2>
+            <p ref={p1Ref} className="about-intro__lead about-reveal">
+              Techphonsa is a technology studio that helps small businesses get online, work more efficiently, and make practical use of AI.
+            </p>
           </div>
         </div>
-      </section>
-    </>
+
+        {/* 2. OUR STORY */}
+        <div className="about-block about-story">
+          <div className="about-block__left">
+            <span className="section-label">OUR STORY</span>
+          </div>
+          <div className="about-block__right">
+            <div className="about-prose">
+              <p ref={p2Ref} className="about-reveal">
+                Techphonsa started with a simple observation: most small businesses either don’t have a website that works for them, or they’re stuck doing repetitive work manually, from following up on leads to answering the same questions to updating spreadsheets. The tools that could fix that are built for enterprises with entire IT teams, not a five-person shop.
+              </p>
+              <p ref={p3Ref} className="about-reveal">
+                We build the practical version. A real, working website first. Then automation that quietly handles the busywork in the background. And once it makes sense for your business, AI that solves a specific problem instead of being AI for the sake of it.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <hr className="about-divider anim-fade-up" aria-hidden="true" />
+
+        {/* 3. OUR APPROACH */}
+        <div className="about-block about-approach">
+          <div className="about-block__left">
+            <span className="section-label">OUR APPROACH</span>
+          </div>
+          <div className="about-block__right">
+            <div className="about-prose">
+              <p ref={p4Ref} className="about-reveal">
+                We’re a young technical studio with hands-on experience across IT, including AI/ML: retrieval-augmented generation, vector search, and speech and transcription systems. We apply that experience to practical problems, like getting a small business online and making sure no lead slips through the cracks.
+              </p>
+              <p ref={p5Ref} className="about-reveal">
+                We’re early and intentionally small. Every project is scoped, overseen, and delivered directly by our team, with trusted collaborators brought in for specialized work, so quality stays consistent as we grow.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* 4. TECHNICAL EXPERTISE */}
+        <div className="about-block about-expertise anim-fade-up">
+          <div className="about-block__left">
+            <span className="section-label">TECHNICAL EXPERTISE</span>
+          </div>
+          <div className="about-block__right">
+            <ul className="expertise-list" role="list">
+              <li className="expertise-item">
+                <span className="expertise-item__num">01</span>
+                <div className="expertise-item__content">
+                  <h4 className="expertise-item__title">AI-powered search and retrieval (RAG)</h4>
+                  <p className="expertise-item__desc">smart document and FAQ assistants</p>
+                </div>
+              </li>
+              <li className="expertise-item">
+                <span className="expertise-item__num">02</span>
+                <div className="expertise-item__content">
+                  <h4 className="expertise-item__title">Workflow automation (n8n)</h4>
+                  <p className="expertise-item__desc">lead routing and back-office tasks</p>
+                </div>
+              </li>
+              <li className="expertise-item">
+                <span className="expertise-item__num">03</span>
+                <div className="expertise-item__content">
+                  <h4 className="expertise-item__title">Vector search and semantic matching</h4>
+                  <p className="expertise-item__desc">accurate, AI-driven recommendations</p>
+                </div>
+              </li>
+              <li className="expertise-item">
+                <span className="expertise-item__num">04</span>
+                <div className="expertise-item__content">
+                  <h4 className="expertise-item__title">Applied machine learning</h4>
+                  <p className="expertise-item__desc">lead scoring and data classification</p>
+                </div>
+              </li>
+              <li className="expertise-item">
+                <span className="expertise-item__num">05</span>
+                <div className="expertise-item__content">
+                  <h4 className="expertise-item__title">Full-stack web development</h4>
+                  <p className="expertise-item__desc">the websites we build</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* 5. WHAT THIS MEANS FOR YOU */}
+        <div className="about-benefits-section anim-fade-up">
+          <div className="about-benefits-header">
+            <span className="section-label">WHAT THIS MEANS FOR YOU</span>
+          </div>
+          <div className="about-benefits">
+            <div className="benefit-item">
+              <span className="benefit-item__num">01</span>
+              <h4 className="benefit-item__title">Direct access.</h4>
+              <p className="benefit-item__desc">You work with the team building your system, not an account manager.</p>
+            </div>
+            <div className="benefit-item">
+              <span className="benefit-item__num">02</span>
+              <h4 className="benefit-item__title">Informed execution.</h4>
+              <p className="benefit-item__desc">Your project is built by people who understand the technology, not just the pitch.</p>
+            </div>
+            <div className="benefit-item">
+              <span className="benefit-item__num">03</span>
+              <h4 className="benefit-item__title">Honest scoping.</h4>
+              <p className="benefit-item__desc">We tell you plainly what AI can and can’t do for your business today.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
   );
 };
 
