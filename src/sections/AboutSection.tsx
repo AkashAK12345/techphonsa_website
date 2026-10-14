@@ -57,21 +57,24 @@ const AboutSection = () => {
     <section ref={sectionRef} id="about" className="about-section section" aria-labelledby="about-title">
       <div className="container about-container">
 
-        {/* EDITORIAL SECTION HEADING */}
-        <h2 className="about-editorial-heading about-anim" aria-hidden="true">
-          About Techphonsa
-        </h2>
-
-        {/* 1. INTRODUCTION (Duplicate label removed, full editorial width) */}
-        <div className="about-intro about-anim">
-          <h2 className="about-intro__title" id="about-title">
-            <span className="about-line"><span className="about-line__inner">A technology studio</span></span>
-            <span className="about-line"><span className="about-line__inner">for practical problems.</span></span>
+        {/* 1. OPENING: EDITORIAL HEADING & INTRODUCTION */}
+        <header className="about-header">
+          <h2 id="about-title" className="about-editorial-heading about-anim">
+            About Techphonsa
           </h2>
-          <p className="about-intro__lead">
-            Techphonsa is a technology studio that helps small businesses get online, work more efficiently, and make practical use of AI.
-          </p>
-        </div>
+
+          <div className="about-intro about-anim">
+            <h3 className="about-intro__title">
+              <span className="about-line"><span className="about-line__inner">A technology studio</span></span>
+              <span className="about-line"><span className="about-line__inner">for practical problems.</span></span>
+            </h3>
+            <p className="about-intro__lead">
+              Techphonsa is a technology studio that helps small businesses get online, work more efficiently, and make practical use of AI.
+            </p>
+          </div>
+        </header>
+
+        <hr className="about-divider about-anim" aria-hidden="true" />
 
         {/* 2. OUR STORY */}
         <div className="about-block about-story">
@@ -108,6 +111,8 @@ const AboutSection = () => {
             </div>
           </div>
         </div>
+
+        <hr className="about-divider about-anim" aria-hidden="true" />
 
         {/* 4. TECHNICAL EXPERTISE */}
         <div className="about-block about-expertise">
@@ -154,6 +159,8 @@ const AboutSection = () => {
             </ul>
           </div>
         </div>
+
+        <hr className="about-divider about-anim" aria-hidden="true" />
 
         {/* 5. WHAT THIS MEANS FOR YOU */}
         <div className="about-benefits-section">
