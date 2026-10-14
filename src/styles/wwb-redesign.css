@@ -109,8 +109,8 @@
   
   display: flex;
   flex-direction: column;
-  gap: var(--s-6);
-  padding: clamp(24px, 4vw, 48px);
+  gap: 12px;
+  padding: clamp(16px, 2.5vh, 24px) clamp(24px, 3.5vw, 36px);
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
@@ -122,6 +122,29 @@
 .wwb-section .flow-card:hover {
   background: transparent !important;
   border-color: transparent !important;
+}
+
+.wwb-section .service-card__number {
+  margin: 0;
+  line-height: 1;
+}
+
+.wwb-section .service-card__title {
+  margin: 0;
+  line-height: 1.1;
+}
+
+.wwb-section .service-card__body {
+  flex: none;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.wwb-section .service-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: 2px;
 }
 
 /* Cards that are in the past move UP and fade out */

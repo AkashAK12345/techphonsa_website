@@ -1,6 +1,15 @@
+import businessSysImg from '../../assets/business_sys.jpg';
+
 const BusinessSystemsSection = () => {
   return (
     <article className="flow-card" id="flow-card-1" aria-labelledby="svc-custom-title">
+      <div className="service-card__image-wrap">
+        <img 
+          src={businessSysImg} 
+          alt="Business Systems" 
+          className="service-card__image service-card__image--business" 
+        />
+      </div>
       <span className="service-card__number">02</span>
       <h3 className="service-card__title" id="svc-custom-title">Business Systems</h3>
       <p className="service-card__body">

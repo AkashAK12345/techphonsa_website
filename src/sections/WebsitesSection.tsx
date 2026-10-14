@@ -1,6 +1,15 @@
+import webImg from '../../assets/web.jpg';
+
 const WebsitesSection = () => {
   return (
     <article className="flow-card" id="flow-card-0" aria-labelledby="svc-websites-title">
+      <div className="service-card__image-wrap">
+        <img 
+          src={webImg} 
+          alt="Websites" 
+          className="service-card__image service-card__image--web" 
+        />
+      </div>
       <span className="service-card__number">01</span>
       <h3 className="service-card__title" id="svc-websites-title">Websites</h3>
       <p className="service-card__body">

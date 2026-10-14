@@ -1,6 +1,15 @@
+import aiIntegrationImg from '../../assets/ai-integration.jpg';
+
 const AIIntegrationSection = () => {
   return (
     <article className="flow-card" id="flow-card-3" aria-labelledby="svc-ai-title">
+      <div className="service-card__image-wrap">
+        <img 
+          src={aiIntegrationImg} 
+          alt="AI Integration" 
+          className="service-card__image service-card__image--ai" 
+        />
+      </div>
       <span className="service-card__number">04</span>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
         <h3 className="service-card__title" id="svc-ai-title">AI Integration</h3>
