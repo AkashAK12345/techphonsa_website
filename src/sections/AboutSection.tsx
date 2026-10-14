@@ -161,17 +161,17 @@ const AboutSection = () => {
             <span className="section-label about-anim">WHAT THIS MEANS FOR YOU</span>
           </div>
           <div className="about-benefits">
-            <div className="benefit-item about-anim">
+            <div className="benefit-item about-anim" tabIndex={0} aria-label="01 Direct access">
               <span className="benefit-item__num">01</span>
               <h3 className="benefit-item__title">Direct access.</h3>
               <p className="benefit-item__desc">You work with the team building your system, not an account manager.</p>
             </div>
-            <div className="benefit-item about-anim">
+            <div className="benefit-item about-anim" tabIndex={0} aria-label="02 Informed execution">
               <span className="benefit-item__num">02</span>
               <h3 className="benefit-item__title">Informed execution.</h3>
               <p className="benefit-item__desc">Your project is built by people who understand the technology, not just the pitch.</p>
             </div>
-            <div className="benefit-item about-anim">
+            <div className="benefit-item about-anim" tabIndex={0} aria-label="03 Honest scoping">
               <span className="benefit-item__num">03</span>
               <h3 className="benefit-item__title">Honest scoping.</h3>
               <p className="benefit-item__desc">We tell you plainly what AI can and can’t do for your business today.</p>

@@ -956,11 +956,50 @@
 }
 
 .benefit-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--s-4);
   padding-top: var(--s-6);
   border-top: 1px solid var(--border-dim);
+  cursor: default;
+  outline: none;
+}
+
+/* Subtle top-line animated highlight extending left to right */
+.benefit-item::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.45);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Restrained dark charcoal highlight (transparent white with low opacity) */
+.benefit-item::after {
+  content: '';
+  position: absolute;
+  inset: 0 -12px -16px -12px;
+  border-radius: 0 0 6px 6px;
+  background-color: rgba(255, 255, 255, 0.022);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+.benefit-item__num,
+.benefit-item__title,
+.benefit-item__desc {
+  position: relative;
+  z-index: 1;
 }
 
 .benefit-item__num {
@@ -968,14 +1007,16 @@
   font-size: 12px;
   letter-spacing: 0.1em;
   color: rgba(255, 255, 255, 0.4);
+  transition: color 350ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .benefit-item__title {
   font-family: var(--font-display);
   font-size: 24px;
   font-weight: 500;
-  color: var(--text-strong);
+  color: var(--text-primary);
   margin: 0;
+  transition: color 350ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .benefit-item__desc {
@@ -984,6 +1025,56 @@
   line-height: 1.6;
   color: var(--text-secondary);
   margin: 0;
+  transition: color 350ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── INTERACTIVE HOVER & KEYBOARD FOCUS STATES ────────────── */
+@media (hover: hover) and (pointer: fine) {
+  .benefit-item:hover::before {
+    transform: scaleX(1);
+  }
+
+  .benefit-item:hover::after {
+    opacity: 1;
+  }
+
+  .benefit-item:hover .benefit-item__num {
+    color: #9db2c7;
+  }
+
+  .benefit-item:hover .benefit-item__title {
+    color: #ffffff;
+  }
+
+  .benefit-item:hover .benefit-item__desc {
+    color: #d1d1d6;
+  }
+}
+
+.benefit-item:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.16);
+  outline-offset: 6px;
+  border-radius: 4px;
+}
+
+.benefit-item:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.benefit-item:focus-visible::after {
+  opacity: 1;
+}
+
+.benefit-item:focus-visible .benefit-item__num {
+  color: #9db2c7;
+}
+
+.benefit-item:focus-visible .benefit-item__title {
+  color: #ffffff;
+}
+
+.benefit-item:focus-visible .benefit-item__desc {
+  color: #d1d1d6;
 }
 
 /* ── RESPONSIVE ADAPTATIONS ────────────────────────────────── */
@@ -1099,8 +1190,9 @@
 .benefit-item.about-anim {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-property: opacity, transform;
+  transition-duration: 0.75s, 0.75s;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1), cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -1109,9 +1201,9 @@
   transform: translateY(0);
 }
 
-.benefit-item.about-anim:nth-child(1) { transition-delay: 0.06s; }
-.benefit-item.about-anim:nth-child(2) { transition-delay: 0.16s; }
-.benefit-item.about-anim:nth-child(3) { transition-delay: 0.26s; }
+.benefit-item.about-anim:not(.is-revealed):nth-child(1) { transition-delay: 0.06s; }
+.benefit-item.about-anim:not(.is-revealed):nth-child(2) { transition-delay: 0.16s; }
+.benefit-item.about-anim:not(.is-revealed):nth-child(3) { transition-delay: 0.26s; }
 
 /* ── ACCESSIBILITY: REDUCED MOTION ─────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
@@ -1124,7 +1216,12 @@
   .about-prose p.about-anim,
   .about-divider.about-anim,
   .expertise-item.about-anim,
-  .benefit-item.about-anim {
+  .benefit-item.about-anim,
+  .benefit-item::before,
+  .benefit-item::after,
+  .benefit-item__num,
+  .benefit-item__title,
+  .benefit-item__desc {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
