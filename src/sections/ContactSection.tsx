@@ -1,20 +1,26 @@
+import { useRef } from 'react';
+import { useRevealOnScroll } from '../hooks/useRevealOnScroll';
+
 const ContactSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  useRevealOnScroll(sectionRef, '.contact-anim');
+
   return (
-    <section id="contact" className="contact-minimal-layout section" style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh' }}>
+    <section ref={sectionRef} id="contact" className="contact-minimal-layout section" style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh' }}>
       <div className="atmosphere atmosphere--globe" aria-hidden="true">
         <div className="atm-light atm-blue" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%) scale(1.5)' }}></div>
         <div className="atm-light atm-violet" style={{ top: '40%', left: '60%', transform: 'translate(-50%, -50%) scale(1.2)' }}></div>
       </div>
       <div id="globe-container" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1, pointerEvents: 'none' }}>
-        <canvas id="globe-canvas" style={{ display: 'block', width: '100%', height: '100%', opacity: 0, transition: 'opacity 2s ease' }}></canvas>
+        <canvas id="globe-canvas" style={{ display: 'block', width: '100%', height: '100%', opacity: 0, transition: 'opacity 450ms ease-out' }}></canvas>
       </div>
 
       <div style={{ position: 'relative', zIndex: 1 }}>
         <header className="contact-header section" aria-labelledby="contact-title">
           <div className="container">
-            <span className="section-header__eyebrow">// LET'S TALK ABOUT WHAT YOU NEED</span>
-            <h1 className="section-header__title section-header__title--large anim-fade-up" id="contact-title">
-              Open Channel
+            <span className="section-header__eyebrow">LET'S TALK ABOUT WHAT YOU NEED</span>
+            <h1 className="section-header__title section-header__title--large contact-anim" id="contact-title">
+              Contact Us
             </h1>
             <span className="section-header__rule" aria-hidden="true"></span>
           </div>
@@ -23,7 +29,7 @@ const ContactSection = () => {
         <section className="contact-section" aria-label="Contact form">
           <div className="container">
             <div className="contact-layout">
-              <div className="contact-intro anim-fade-up">
+              <div className="contact-intro contact-anim">
                 <h2 className="contact-intro__headline">Tell us what you're trying to solve.</h2>
                 <p className="contact-intro__body">
                   We'll be straight with you about whether we can help and how. No obligation, no sales pitch — just a conversation about what you need.
@@ -45,8 +51,12 @@ const ContactSection = () => {
                 </div>
               </div>
 
-              <div className="contact-form-panel anim-fade-up anim-fade-up--delay-1">
-                <p className="contact-form-panel__label" aria-hidden="true">OPEN CHANNEL // FORM</p>
+              <div className="contact-form-panel contact-anim contact-anim--delayed">
+                <div className="contact-form-panel__header">
+                  <p className="contact-form-panel__label">CONTACT US</p>
+                  <h2 className="contact-form-panel__title">Tell us about your project.</h2>
+                  <p className="contact-form-panel__hint">A few details are enough to get the conversation started.</p>
+                </div>
 
                 <div id="form-body">
                   <form
@@ -54,12 +64,11 @@ const ContactSection = () => {
                     className="contact-form"
                     action="https://formsubmit.co/techphonsa@gmail.com"
                     method="POST"
-                    noValidate
                     aria-label="Contact form"
                   >
-                    <input type="hidden" name="_next" value="http://localhost:8080/contact.html" />
                     <input type="hidden" name="_subject" value="New inquiry from Techphonsa Website!" />
                     <input type="hidden" name="_captcha" value="false" />
+                    <input type="hidden" name="_template" value="table" />
                     
                     <div className="contact-form__row">
                       <div className="form-group">
@@ -100,7 +109,7 @@ const ContactSection = () => {
                     <div className="contact-form__submit-row">
                       <p className="contact-form__disclaimer">Your details are only used to respond to your enquiry.</p>
                       <button type="submit" className="hud-btn hud-btn--primary hud-btn--submit" id="form-submit">
-                        Initialize conversation
+                        Send enquiry
                         <span className="btn-arrow" aria-hidden="true">→</span>
                       </button>
                     </div>

@@ -1,7 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState('home');
+
+  useEffect(() => {
+    const sectionIds = ['home', 'about', 'services', 'contact'];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveLink(visible.target.id);
+      },
+      { rootMargin: '-35% 0px -50% 0px', threshold: [0.01, 0.25, 0.5] },
+    );
+
+    sectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const selectLink = (id: string) => {
+    setActiveLink(id);
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -25,11 +51,11 @@ const Navbar: React.FC = () => {
         </a>
 
         <ul className="nav-links" role="list">
-          <li><a href="#home" className="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#contact" className="nav-cta">Let's talk</a></li>
+          <li><a href="#home" className={activeLink === 'home' ? 'active' : ''} onClick={() => selectLink('home')}>Home</a></li>
+          <li><a href="#about" className={activeLink === 'about' ? 'active' : ''} onClick={() => selectLink('about')}>About</a></li>
+          <li><a href="#services" className={activeLink === 'services' ? 'active' : ''} onClick={() => selectLink('services')}>Services</a></li>
+          <li><a href="#contact" className={activeLink === 'contact' ? 'active' : ''} onClick={() => selectLink('contact')}>Contact</a></li>
+          <li><a href="#contact" className="nav-cta" onClick={() => selectLink('contact')}>Let's talk</a></li>
         </ul>
 
         <button 
@@ -47,10 +73,10 @@ const Navbar: React.FC = () => {
 
       <div className={`nav-mobile-overlay ${isOpen ? 'open' : ''}`} id="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation">
         <button className="nav-mobile-close" aria-label="Close navigation" onClick={() => setIsOpen(false)}>ESC / CLOSE</button>
-        <a href="#home" onClick={() => setIsOpen(false)}>Home</a>
-        <a href="#about" onClick={() => setIsOpen(false)}>About</a>
-        <a href="#services" onClick={() => setIsOpen(false)}>Services</a>
-        <a href="#contact" onClick={() => setIsOpen(false)}>Contact</a>
+        <a href="#home" onClick={() => selectLink('home')}>Home</a>
+        <a href="#about" onClick={() => selectLink('about')}>About</a>
+        <a href="#services" onClick={() => selectLink('services')}>Services</a>
+        <a href="#contact" onClick={() => selectLink('contact')}>Contact</a>
       </div>
     </>
   );

@@ -171,19 +171,35 @@ const HowWeWork = () => {
       };
     };
 
+    let cardGeometry: ReturnType<typeof getCardGeometry> | null = null;
+
+    const measureCards = () => {
+      if (!stageRef.current) return;
+      cardGeometry = getCardGeometry(stageRef.current);
+      cardRefs.current.forEach((el) => {
+        if (!el || !cardGeometry) return;
+        el.style.position = 'absolute';
+        el.style.width = `${cardGeometry.cardW}px`;
+        el.style.height = `${cardGeometry.cardH}px`;
+        el.style.left = '0';
+        el.style.top = '0';
+        el.style.margin = '0';
+      });
+      applyCardStyles();
+    };
+
     const applyCardStyles = () => {
-      if (!deckTrackRef.current || !stageRef.current) return;
+      if (!deckTrackRef.current || !cardGeometry) return;
 
       const prog = prefersReduced ? 1 : trackProgress(deckTrackRef.current);
-      const geo  = getCardGeometry(stageRef.current);
+      const geo = cardGeometry;
 
-      // 7. FINAL COMPOSITION MUST BE STABLE BEFORE LEAVING THE DECK
-      // All cards converge simultaneously at 0.70 progress, leaving a 30% HOLD PHASE.
+      // Complete the composition early, then hold it briefly before the next section.
       const stages = [
-        { start: 0.00, end: 0.70 },
-        { start: 0.00, end: 0.70 },
-        { start: 0.00, end: 0.70 },
-        { start: 0.00, end: 0.70 },
+        { start: 0.00, end: 0.52 },
+        { start: 0.00, end: 0.52 },
+        { start: 0.00, end: 0.52 },
+        { start: 0.00, end: 0.52 },
       ];
 
       CARDS.forEach((card, i) => {
@@ -215,16 +231,9 @@ const HowWeWork = () => {
         const zIndex    = local > 0 ? departedZ : baseZ;
 
         // ── CRITICAL CHANGE: position absolute, not fixed ──────────────
-        el.style.position    = 'absolute';
-        el.style.width       = `${geo.cardW}px`;
-        el.style.height      = `${geo.cardH}px`;
-        // Translate from center coords to top-left for absolute positioning
-        el.style.left        = `${cx - geo.cardW / 2}px`;
-        el.style.top         = `${cy - geo.cardH / 2}px`;
-        el.style.transform   = `rotate(${rot}deg)`;
+        el.style.transform   = `translate3d(${cx - geo.cardW / 2}px, ${cy - geo.cardH / 2}px, 0) rotate(${rot}deg)`;
         el.style.zIndex      = String(zIndex);
         el.style.opacity     = '1';
-        el.style.margin      = '0';
         el.style.pointerEvents = local >= 1 ? 'auto' : 'none';
       });
     };
@@ -251,16 +260,17 @@ const HowWeWork = () => {
       });
     }
 
-    // Initial paint
+    // Geometry is measured only at startup and resize; scroll writes are transform-only.
+    measureCards();
     applyCardStyles();
     onScroll();
 
     window.addEventListener('scroll', onScroll,         { passive: true });
-    window.addEventListener('resize', applyCardStyles,  { passive: true });
+    window.addEventListener('resize', measureCards,  { passive: true });
 
     return () => {
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', applyCardStyles);
+      window.removeEventListener('resize', measureCards);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, []);
