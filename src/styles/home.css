@@ -495,8 +495,6 @@
   z-index: var(--z-content);
   background-color: var(--bg-void);
   color: var(--text-strong);
-  /* overflow visible so fixed cards are not clipped */
-  padding-bottom: 30vh; /* gives the deck time to clear out completely before the next section */
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -759,7 +757,8 @@
 
 .about-section {
   position: relative;
-  padding-block: clamp(72px, 10vh, 120px);
+  padding-top: clamp(40px, 5vw, 64px);
+  padding-bottom: clamp(72px, 10vh, 120px);
   background-color: var(--bg-void);
   z-index: var(--z-content);
   color: var(--text-strong);
@@ -1130,7 +1129,8 @@
 
 @media (max-width: 768px) {
   .about-section {
-    padding-block: clamp(56px, 8vh, 80px);
+    padding-top: clamp(32px, 5vw, 48px);
+    padding-bottom: clamp(56px, 8vh, 80px);
   }
 
   .about-container {
