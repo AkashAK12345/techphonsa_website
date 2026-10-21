@@ -3,7 +3,7 @@ import { useRevealOnScroll } from '../hooks/useRevealOnScroll';
 
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  useRevealOnScroll(sectionRef, '.about-anim', { repeat: true });
+  useRevealOnScroll(sectionRef, '.about-anim');
 
   return (
     <section ref={sectionRef} id="about" className="about-section section" aria-labelledby="about-heading">

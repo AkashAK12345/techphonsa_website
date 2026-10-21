@@ -21,9 +21,7 @@ const BusinessSystemsSection = () => {
         <span className="service-card__pill">POS</span>
         <span className="service-card__pill">Custom workflows</span>
       </div>
-      <a href="#contact" className="btn-primary btn-primary--secondary" style={{ width: 'fit-content', marginTop: 'auto' }}>
-        Learn more <span className="btn-arrow" aria-hidden="true">&#8594;</span>
-      </a>
+
     </article>
   );
 };

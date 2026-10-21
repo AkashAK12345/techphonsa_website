@@ -24,21 +24,52 @@ const Navbar: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  const getNavHeight = (): number => {
+    const nav = document.querySelector('.nav');
+    if (nav) {
+      const h = nav.getBoundingClientRect().height;
+      if (h > 0) return h;
+    }
+    const navHVar = parseInt(
+      getComputedStyle(document.documentElement).getPropertyValue('--nav-h') || '80',
+      10,
+    );
+    return Number.isNaN(navHVar) ? 80 : navHVar;
+  };
+
+  const scrollToSection = (id: string, updateHash = true) => {
+    setActiveLink(id);
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (updateHash && window.location.hash !== '#home') {
+        window.history.pushState(null, '', '#home');
+      }
+      return;
+    }
+
+    const section = document.getElementById(id);
+    if (section) {
+      const navH = getNavHeight();
+      const top = section.getBoundingClientRect().top + window.scrollY - navH;
+      window.scrollTo({ top, behavior: 'smooth' });
+      if (updateHash && window.location.hash !== `#${id}`) {
+        window.history.pushState(null, '', `#${id}`);
+      }
+    }
+  };
+
   // Handle direct loads with hash and back/forward navigation
   useEffect(() => {
     const handleHashNavigation = () => {
       const hash = window.location.hash.replace('#', '');
       if (hash) {
-        setActiveLink(hash);
-        const section = document.getElementById(hash);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth' });
-        }
+        scrollToSection(hash, false);
       }
     };
 
     if (window.location.hash) {
-      setTimeout(handleHashNavigation, 80);
+      const timer = setTimeout(handleHashNavigation, 80);
+      return () => clearTimeout(timer);
     }
 
     window.addEventListener('hashchange', handleHashNavigation);
@@ -47,20 +78,8 @@ const Navbar: React.FC = () => {
 
   const selectLink = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    setActiveLink(id);
     setIsOpen(false);
-
-    if (id === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      window.history.pushState(null, '', '#home');
-      return;
-    }
-
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-      window.history.pushState(null, '', `#${id}`);
-    }
+    scrollToSection(id, true);
   };
 
   return (

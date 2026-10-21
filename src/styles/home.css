@@ -495,8 +495,8 @@
   z-index: var(--z-content);
   background-color: var(--bg-void);
   color: var(--text-strong);
-  /* overflow visible so fixed cards are not clipped */
-  padding-bottom: 30vh; /* gives the deck time to clear out completely before the next section */
+  /* Proportional clearance before About section */
+  padding-bottom: clamp(32px, 5vw, 64px);
 }
 
 /* ════════════════════════════════════════════════════════════
