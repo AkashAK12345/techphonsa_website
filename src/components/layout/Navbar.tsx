@@ -5,7 +5,7 @@ const Navbar: React.FC = () => {
   const [activeLink, setActiveLink] = useState('home');
 
   useEffect(() => {
-    const sectionIds = ['home', 'about', 'services', 'contact'];
+    const sectionIds = ['home', 'services', 'about', 'contact'];
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (visible) setActiveLink(visible.target.id);
       },
-      { rootMargin: '-35% 0px -50% 0px', threshold: [0.01, 0.25, 0.5] },
+      { rootMargin: '-20% 0px -40% 0px', threshold: [0.01, 0.25, 0.5] },
     );
 
     sectionIds.forEach((id) => {
@@ -24,15 +24,49 @@ const Navbar: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  const selectLink = (id: string) => {
+  // Handle direct loads with hash and back/forward navigation
+  useEffect(() => {
+    const handleHashNavigation = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        setActiveLink(hash);
+        const section = document.getElementById(hash);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    if (window.location.hash) {
+      setTimeout(handleHashNavigation, 80);
+    }
+
+    window.addEventListener('hashchange', handleHashNavigation);
+    return () => window.removeEventListener('hashchange', handleHashNavigation);
+  }, []);
+
+  const selectLink = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
     setActiveLink(id);
     setIsOpen(false);
+
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.history.pushState(null, '', '#home');
+      return;
+    }
+
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+      window.history.pushState(null, '', `#${id}`);
+    }
   };
 
   return (
     <>
       <nav className="nav" role="navigation" aria-label="Main navigation">
-        <a href="/" className="nav-brand" aria-label="Techphonsa home">
+        <a href="#home" className="nav-brand" aria-label="Techphonsa home" onClick={(e) => selectLink(e, 'home')}>
           <svg className="nav-logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <polygon points="13,2 27,2 38,13 38,27 27,38 13,38 2,27 2,13" stroke="#334155" strokeWidth="1.5" fill="none" opacity="0.9"/>
             <circle cx="20" cy="20" r="10" stroke="#334155" strokeWidth="0.75" opacity="0.3"/>
@@ -51,11 +85,11 @@ const Navbar: React.FC = () => {
         </a>
 
         <ul className="nav-links" role="list">
-          <li><a href="#home" className={activeLink === 'home' ? 'active' : ''} onClick={() => selectLink('home')}>Home</a></li>
-          <li><a href="#about" className={activeLink === 'about' ? 'active' : ''} onClick={() => selectLink('about')}>About</a></li>
-          <li><a href="#services" className={activeLink === 'services' ? 'active' : ''} onClick={() => selectLink('services')}>Services</a></li>
-          <li><a href="#contact" className={activeLink === 'contact' ? 'active' : ''} onClick={() => selectLink('contact')}>Contact</a></li>
-          <li><a href="#contact" className="nav-cta" onClick={() => selectLink('contact')}>Let's talk</a></li>
+          <li><a href="#home" className={activeLink === 'home' ? 'active' : ''} onClick={(e) => selectLink(e, 'home')}>Home</a></li>
+          <li><a href="#about" className={activeLink === 'about' ? 'active' : ''} onClick={(e) => selectLink(e, 'about')}>About</a></li>
+          <li><a href="#services" className={activeLink === 'services' ? 'active' : ''} onClick={(e) => selectLink(e, 'services')}>Services</a></li>
+          <li><a href="#contact" className={activeLink === 'contact' ? 'active' : ''} onClick={(e) => selectLink(e, 'contact')}>Contact</a></li>
+          <li><a href="#contact" className="nav-cta" onClick={(e) => selectLink(e, 'contact')}>Let's talk</a></li>
         </ul>
 
         <button 
@@ -73,10 +107,11 @@ const Navbar: React.FC = () => {
 
       <div className={`nav-mobile-overlay ${isOpen ? 'open' : ''}`} id="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation">
         <button className="nav-mobile-close" aria-label="Close navigation" onClick={() => setIsOpen(false)}>ESC / CLOSE</button>
-        <a href="#home" onClick={() => selectLink('home')}>Home</a>
-        <a href="#about" onClick={() => selectLink('about')}>About</a>
-        <a href="#services" onClick={() => selectLink('services')}>Services</a>
-        <a href="#contact" onClick={() => selectLink('contact')}>Contact</a>
+        <a href="#home" className={activeLink === 'home' ? 'active' : ''} onClick={(e) => selectLink(e, 'home')}>Home</a>
+        <a href="#about" className={activeLink === 'about' ? 'active' : ''} onClick={(e) => selectLink(e, 'about')}>About</a>
+        <a href="#services" className={activeLink === 'services' ? 'active' : ''} onClick={(e) => selectLink(e, 'services')}>Services</a>
+        <a href="#contact" className={activeLink === 'contact' ? 'active' : ''} onClick={(e) => selectLink(e, 'contact')}>Contact</a>
+        <a href="#contact" className="nav-cta" onClick={(e) => selectLink(e, 'contact')}>Let's talk</a>
       </div>
     </>
   );

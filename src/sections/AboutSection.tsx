@@ -6,19 +6,18 @@ const AboutSection = () => {
   useRevealOnScroll(sectionRef, '.about-anim', { repeat: true });
 
   return (
-    <section ref={sectionRef} id="about" className="about-section section" aria-labelledby="about-title">
+    <section ref={sectionRef} id="about" className="about-section section" aria-labelledby="about-heading">
       {/* Ambient background glow orb */}
       <div className="about-ambient-glow" aria-hidden="true" />
 
       <div className="container about-container">
 
-        {/* EDITORIAL SECTION HEADING & BADGE */}
+        {/* EDITORIAL SECTION HEADING */}
         <div className="about-header-wrap about-anim">
           <h2 className="about-editorial-heading" id="about-heading">
             <span className="about-editorial-heading__word">About</span>{' '}
             <span className="about-editorial-heading__word">Techphonsa</span>
           </h2>
-          <div className="about-header-line" aria-hidden="true" />
         </div>
 
         {/* 1. INTRODUCTION */}
