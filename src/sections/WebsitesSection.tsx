@@ -21,9 +21,7 @@ const WebsitesSection = () => {
         <span className="service-card__pill">Lead capture forms</span>
         <span className="service-card__pill">Optional CMS</span>
       </div>
-      <a href="/services#websites" className="btn-primary btn-primary--secondary" style={{ width: 'fit-content', marginTop: 'auto' }}>
-        Learn more <span className="btn-arrow" aria-hidden="true">&#8594;</span>
-      </a>
+
     </article>
   );
 };

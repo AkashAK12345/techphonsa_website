@@ -7,7 +7,7 @@ const FinalCTA = () => {
           <p style={{ fontSize: 'var(--text-lg)', color: 'var(--text-secondary)', maxWidth: '480px', textAlign: 'center', lineHeight: 1.7 }}>
             If you're a small business that needs a real website or a way to stop doing repetitive work by hand, we should talk.
           </p>
-          <a href="/contact" className="btn-primary btn-primary--primary">
+          <a href="#contact" className="btn-primary btn-primary--primary">
             Let's talk about what you need
             <span className="btn-arrow" aria-hidden="true">→</span>
           </a>

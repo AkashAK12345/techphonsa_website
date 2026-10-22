@@ -149,6 +149,15 @@ input, textarea, select {
   padding-block: var(--section-py);
   position: relative;
   z-index: var(--z-content);
+  scroll-margin-top: var(--nav-h, 80px);
+}
+
+#home,
+#services,
+#how-we-work,
+#about,
+#contact {
+  scroll-margin-top: var(--nav-h, 80px);
 }
 
 /* ── TYPOGRAPHY BASE ───────────────────────────────────────── */
