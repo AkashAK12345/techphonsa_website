@@ -93,12 +93,6 @@ const AboutSection = () => {
                   </div>
                   <p className="expertise-item__desc">smart document and FAQ assistants</p>
                 </div>
-                <div className="expertise-item__arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </div>
               </li>
               <li className="expertise-item about-anim">
                 <div className="expertise-item__bar" aria-hidden="true" />
@@ -108,12 +102,6 @@ const AboutSection = () => {
                     <span className="expertise-item__tag">AUTOMATION + API</span>
                   </div>
                   <p className="expertise-item__desc">lead routing and back-office tasks</p>
-                </div>
-                <div className="expertise-item__arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
                 </div>
               </li>
               <li className="expertise-item about-anim">
@@ -125,12 +113,6 @@ const AboutSection = () => {
                   </div>
                   <p className="expertise-item__desc">accurate, AI-driven recommendations</p>
                 </div>
-                <div className="expertise-item__arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </div>
               </li>
               <li className="expertise-item about-anim">
                 <div className="expertise-item__bar" aria-hidden="true" />
@@ -141,12 +123,6 @@ const AboutSection = () => {
                   </div>
                   <p className="expertise-item__desc">lead scoring and data classification</p>
                 </div>
-                <div className="expertise-item__arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </div>
               </li>
               <li className="expertise-item about-anim">
                 <div className="expertise-item__bar" aria-hidden="true" />
@@ -156,12 +132,6 @@ const AboutSection = () => {
                     <span className="expertise-item__tag">MODERN WEB STACK</span>
                   </div>
                   <p className="expertise-item__desc">the websites we build</p>
-                </div>
-                <div className="expertise-item__arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
                 </div>
               </li>
             </ul>
@@ -200,10 +170,6 @@ const AboutSection = () => {
               </div>
               <div className="benefit-card__footer">
                 <span className="benefit-card__link">Direct communication</span>
-                <svg className="benefit-card__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
               </div>
             </div>
 
@@ -238,10 +204,6 @@ const AboutSection = () => {
               </div>
               <div className="benefit-card__footer">
                 <span className="benefit-card__link">Engineered to scale</span>
-                <svg className="benefit-card__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
               </div>
             </div>
 
@@ -268,10 +230,6 @@ const AboutSection = () => {
               </div>
               <div className="benefit-card__footer">
                 <span className="benefit-card__link">Transparent feasibility</span>
-                <svg className="benefit-card__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
               </div>
             </div>
           </div>
